@@ -1,12 +1,4 @@
-import Image from "next/image";
-
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 gap-16 sm:p-20">
-      <header></header>
-
-      <main className="">
-        <p className="text-center sm:text-left font-mono text-4xl font-thin">
+<p className="text-center sm:text-left font-mono text-4xl font-thin">
           Here is my story:
         </p>
 
@@ -60,9 +52,3 @@ export default function Home() {
         <p>I know that I still have a long journey.</p>
 
         <p>With you, we can make it a meaningful one.</p>
-      </main>
-
-      <footer></footer>
-    </div>
-  );
-}

@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import Link from "next/link";
 
-export default function CustomLink({ children, isFilled = false, iconRight }) {
+export default function HeroButton({ children, isFilled = false, iconRight }) {
   return (
     <Link
       href="#"

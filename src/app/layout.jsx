@@ -20,16 +20,16 @@ export default function RootLayout({ children }) {
               <NavBar />
             </header>
 
-            <div className="fixed top-[4rem] h-[8vh] w-full bg-gradient-to-b from-background to-transparent bg-red-900" />
+            <div className="fixed top-[3rem] h-[8vh] w-full bg-gradient-to-b from-background to-transparent bg-red-900" />
 
             <main className="h-full grid items-center justify-items-center overflow-clip">
               {children}
             </main>
 
-            <div className="fixed bottom-[4rem] h-[8vh] w-full bg-gradient-to-t from-background to-transparent bg-red-900" />
+            <div className="fixed bottom-[3rem] h-[8vh] w-full bg-gradient-to-t from-background to-transparent bg-red-900" />
 
             <footer className="flex flex-col justify-start px-8 bg-background">
-              test
+              <p>test</p>
             </footer>
           </div>
         </div>

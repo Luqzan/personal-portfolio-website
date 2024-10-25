@@ -12,18 +12,18 @@ export default function Hero() {
           WELCOME TO MY
         </p>
 
-        <span className="font-mono font-light text-center text-6xl tracking-widest">
+        <span className="font-mono font-light text-center text-5xl tracking-widest">
           Portfolio
         </span>
 
-        <p className="w-[400px] text-center font-sans text-xl font-thin tracking-widest leading-7">
+        <p className="max-w-[400px] text-center font-sans text-xl font-thin tracking-widest leading-7">
           My name is <Underline>Luqzan Ariff</Underline>, and I just{" "}
           <span className="text-nowrap">kick-started</span> my career as a{" "}
           <Underline>Full-Stack Developer</Underline>!
         </p>
       </div>
 
-      <div className="flex gap-6">
+      <div className="flex flex-wrap justify-center gap-6">
         <HeroButton
           isFilled={true}
           iconRight={

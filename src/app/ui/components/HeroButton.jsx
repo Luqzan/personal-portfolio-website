@@ -6,7 +6,7 @@ export default function HeroButton({ children, isFilled = false, iconRight }) {
     <Link
       href="#"
       className={clsx(
-        "font-mono text-lg tracking-widest py-1 font-extralight",
+        "font-mono text-lg tracking-widest py-1 font-extralight flex-shrink-0",
         {
           "border-b text-foreground hover:text-accent-500 hover:border-accent-500":
             !isFilled,

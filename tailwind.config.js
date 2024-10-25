@@ -10,6 +10,7 @@ module.exports = {
       colors: {
         background: "#0a0a0a",
         foreground: "#ededed",
+        transparent: "#00000000",
         laravel: "#FF2D20",
         react: "#00D8FF",
         nodejs: "#5FA04E",

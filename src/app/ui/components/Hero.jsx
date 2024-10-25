@@ -8,12 +8,15 @@ export default function Hero() {
   return (
     <div className="flex flex-col gap-12 items-center">
       <div className="flex flex-col gap-6">
-        <p className="text-center font-mono text-3xl font-extralight tracking-wider leading-normal">
-          WELCOME TO MY{" "}
-          <span className="text-6xl tracking-widest font-light">Portfolio</span>
+        <p className="text-center font-mono text-3xl font-extralight tracking-wider">
+          WELCOME TO MY
         </p>
 
-        <p className="text-center font-sans text-xl font-thin tracking-widest leading-7">
+        <span className="font-mono font-light text-center text-6xl tracking-widest">
+          Portfolio
+        </span>
+
+        <p className="w-[400px] text-center font-sans text-xl font-thin tracking-widest leading-7">
           My name is <Underline>Luqzan Ariff</Underline>, and I just{" "}
           <span className="text-nowrap">kick-started</span> my career as a{" "}
           <Underline>Full-Stack Developer</Underline>!

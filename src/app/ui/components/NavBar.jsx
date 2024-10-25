@@ -14,8 +14,8 @@ export default function NavBar() {
       link: "/",
     },
     {
-      label: "Portfolio",
-      link: "#",
+      label: "Projects",
+      link: "/projects",
     },
     {
       label: "Resume",
@@ -24,7 +24,7 @@ export default function NavBar() {
   ];
 
   return (
-    <nav className="">
+    <nav>
       <ul className="flex flex-row justify-end gap-4">
         {pages.map((page) => {
           return (

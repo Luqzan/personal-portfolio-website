@@ -14,26 +14,24 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${geistSans} ${geistMono}`}>
       <body className={`antialiased`}>
-        <div className="min-h-screen p-8 grid grid-rows-[fit-content(40px)_1fr_40px] grid-cols-1 gap-12">
-          <header className="sticky">
-            <NavBar />
-          </header>
+        <div className="flex justify-center w-full">
+          <div className="relative min-h-screen w-full max-w-screen-xl grid grid-rows-[6rem_calc(100vh-12rem)_6rem] grid-cols-1">
+            <header className="p-8 sticky top-0 flex flex-col justify-end bg-background">
+              <NavBar />
+            </header>
 
-          <main className="grid items-center">{children}</main>
+            <div className="fixed top-[6rem] h-[8vh] w-full bg-gradient-to-b from-background to-transparent" />
 
-          <footer className="sticky">test</footer>
-
-          {/* <header></header> */}
-
-          {/* <main className="flex flex-col gap-24 sm:flex-row sm:flex-wrap sm:items-center w-full h-full max-w-screen-xl">
-            
-
-            <div className="flex-grow bg-slate-500 h-[200px]">
+            <main className="h-full grid items-center justify-items-center">
               {children}
-            </div>
-          </main> */}
+            </main>
 
-          {/* <footer></footer> */}
+            <div className="fixed bottom-[6rem] h-[8vh] w-full bg-gradient-to-t from-background to-transparent" />
+
+            <footer className="p-8 sticky bottom-0 flex flex-col justify-start bg-background">
+              test
+            </footer>
+          </div>
         </div>
       </body>
     </html>

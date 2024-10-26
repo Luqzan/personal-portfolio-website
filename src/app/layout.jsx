@@ -1,7 +1,7 @@
 import "@/app/globals.css";
 import { geistMono, geistSans } from "@/app/ui/fonts";
-import NavBar from "./ui/components/NavBar";
-import MainSection from "./ui/components/MainSection";
+import NavBar from "@/app/ui/components/NavBar";
+import MainSection from "@/app/ui/components/MainSection";
 
 export const metadata = {
   title: {

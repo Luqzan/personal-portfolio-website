@@ -7,9 +7,9 @@ import clsx from "clsx";
 export default function MainSection({ children }) {
   const pathname = usePathname();
   return (
-    <main className="h-full w-full flex flex-row flex-nowrap items-center justify-evenly gap-8 overflow-hidden max-w-screen-xl">
+    <main className="h-full w-full flex flex-row flex-nowrap items-center overflow-hidden max-w-screen-xl">
       <div
-        className={clsx("flex md:flex", {
+        className={clsx("flex flex-1 justify-center md:flex", {
           hidden: pathname !== "/",
         })}
       >
@@ -17,7 +17,7 @@ export default function MainSection({ children }) {
       </div>
 
       <div
-        className={clsx("h-full min-w-[320px]", {
+        className={clsx("flex-1 flex justify-center h-full min-w-[320px]", {
           hidden: pathname === "/",
         })}
       >

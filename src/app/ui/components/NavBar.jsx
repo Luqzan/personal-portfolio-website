@@ -3,7 +3,7 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Underline from "./Underline";
+import Underline from "@/app/ui/components/Underline";
 
 export default function NavBar() {
   const pathname = usePathname();

@@ -2,9 +2,8 @@
 
 import HeroButton from "@/app/ui/components/HeroButton";
 import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
-import Underline from "./Underline";
+import Underline from "@/app/ui/components/Underline";
 import { usePathname } from "next/navigation";
-import clsx from "clsx";
 
 export default function Hero() {
   const pathname = usePathname();

@@ -15,9 +15,6 @@ export default function Page() {
       <div className="snap-center flex justify-center">
         <ProjectCard />
       </div>
-      {/* <div className="sticky bottom-0 bg-gradient-to-t from-background to-transparent">
-        <div className="h-40" />
-      </div> */}
     </div>
   );
 }

@@ -6,7 +6,7 @@ import Underline from "./Underline";
 
 export default function Hero() {
   return (
-    <div className="flex flex-col gap-12 items-center">
+    <div className="flex flex-col gap-12 items-center px-8">
       <div className="flex flex-col gap-6">
         <p className="text-center font-mono text-3xl font-extralight tracking-wider">
           WELCOME TO MY

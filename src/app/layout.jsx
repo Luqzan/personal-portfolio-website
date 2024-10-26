@@ -13,26 +13,28 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${geistSans} ${geistMono}`}>
-      <body className={`antialiased`}>
-        <div className="flex justify-center w-full">
-          <div className="relative h-screen w-full max-w-screen-xl grid grid-rows-[3rem_calc(100vh-6rem)_3rem] grid-cols-1 ">
-            <header className="flex flex-col justify-end px-8 bg-background">
+      <body className="flex flex-col items-center w-screen h-screen antialiased">
+        <header className="sticky top-0 flex flex-col w-full max-w-screen-xl">
+          <div className="flex flex-row p-8 bg-background">
+            <div className="ml-auto">
               <NavBar />
-            </header>
-
-            <div className="fixed top-[3rem] h-[8vh] w-full bg-gradient-to-b from-background to-transparent bg-red-900" />
-
-            <main className="h-full grid items-center justify-items-center overflow-clip">
-              {children}
-            </main>
-
-            <div className="fixed bottom-[3rem] h-[8vh] w-full bg-gradient-to-t from-background to-transparent bg-red-900" />
-
-            <footer className="flex flex-col justify-start px-8 bg-background">
-              <p>test</p>
-            </footer>
+            </div>
           </div>
-        </div>
+
+          <div className="w-full h-[8vh] bg-gradient-to-b from-background to-transparent" />
+        </header>
+
+        <main className="h-full w-full flex items-center justify-center">
+          {children}
+        </main>
+
+        <footer className="sticky bottom-0 flex flex-col w-full max-w-screen-xl">
+          <div className="w-full h-[8vh] bg-gradient-to-t from-background to-transparent" />
+
+          <div className="flex flex-row p-8 bg-background">
+            <div className="">Test</div>
+          </div>
+        </footer>
       </body>
     </html>
   );

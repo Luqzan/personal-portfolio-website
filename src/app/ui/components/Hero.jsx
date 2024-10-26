@@ -3,10 +3,13 @@
 import HeroButton from "@/app/ui/components/HeroButton";
 import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
 import Underline from "./Underline";
+import { usePathname } from "next/navigation";
+import clsx from "clsx";
 
 export default function Hero() {
+  const pathname = usePathname();
   return (
-    <div className="flex flex-col gap-12 items-center px-8">
+    <div className="flex flex-col gap-12 items-center px-8 sm:flex">
       <div className="flex flex-col gap-6">
         <p className="text-center font-mono text-3xl font-extralight tracking-wider">
           WELCOME TO MY

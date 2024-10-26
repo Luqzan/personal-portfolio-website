@@ -1,6 +1,7 @@
 import "@/app/globals.css";
 import { geistMono, geistSans } from "@/app/ui/fonts";
 import NavBar from "./ui/components/NavBar";
+import MainSection from "./ui/components/MainSection";
 
 export const metadata = {
   title: {
@@ -13,7 +14,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${geistSans} ${geistMono} h-full`}>
-      <body className="h-full antialiased">
+      <body className="h-full antialiased flex justify-center">
         <header className="fixed top-0 flex flex-col w-full max-w-screen-xl">
           <div className="flex flex-row p-8 bg-background">
             <div className="ml-auto">
@@ -24,9 +25,7 @@ export default function RootLayout({ children }) {
           <div className="w-full h-[8vh] bg-gradient-to-b from-background to-transparent" />
         </header>
 
-        <main className="h-full w-full flex items-center justify-center overflow-hidden">
-          {children}
-        </main>
+        <MainSection>{children}</MainSection>
 
         <footer className="fixed bottom-0 flex flex-col w-full max-w-screen-xl">
           <div className="w-full h-[8vh] bg-gradient-to-t from-background to-transparent" />

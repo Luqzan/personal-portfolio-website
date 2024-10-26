@@ -13,7 +13,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${geistSans} ${geistMono}`}>
-      <body className="flex flex-col items-center w-screen h-screen antialiased">
+      <body className="flex flex-col items-center w-full h-full antialiased">
         <header className="sticky top-0 flex flex-col w-full max-w-screen-xl">
           <div className="flex flex-row p-8 bg-background">
             <div className="ml-auto">

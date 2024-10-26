@@ -5,7 +5,7 @@ export default function ProjectCard() {
   const technologies = ["nextjs", "typescript", "tailwind", "postgres"];
 
   return (
-    <div className="flex flex-col gap-8 p-8 border border-foreground rounded-lg w-full max-w-md">
+    <div className="flex flex-col gap-8 p-8 border border-foreground rounded-lg w-full">
       <h3 className="font-mono font-extralight text-2xl">
         nextjs-financial-dashboard
       </h3>

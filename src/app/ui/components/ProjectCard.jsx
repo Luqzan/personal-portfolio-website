@@ -10,13 +10,13 @@ export default function ProjectCard() {
         nextjs-financial-dashboard
       </h3>
 
-      <figure className="h-fit border border-foreground rounded-lg overflow-clip">
+      <figure className="border border-foreground rounded-lg overflow-clip">
         <Image
           src="/dummy-photo.jpg"
           alt="dummy photo"
           width={384}
           height={216}
-          className="w-full"
+          className="w-full h-auto"
         />
       </figure>
 

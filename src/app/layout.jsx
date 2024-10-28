@@ -16,6 +16,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${geistSans} ${geistMono} h-full`}>
       <ClerkProvider
+        dynamic
         appearance={{
           variables: {
             colorPrimary: "#ededed",

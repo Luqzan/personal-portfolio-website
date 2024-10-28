@@ -8,22 +8,22 @@ export default function TechBadge({ brand }) {
 
   switch (brand) {
     case "nextjs":
-      src = "/nextjs-logo.svg";
+      src = "/logos/nextjs-logo.svg";
       alt = "NextJS Logo";
       label = "NextJS";
       break;
     case "typescript":
-      src = "/typescript-logo.svg";
+      src = "/logos/typescript-logo.svg";
       alt = "TypeScript Logo";
       label = "TypeScript";
       break;
     case "tailwind":
-      src = "/tailwind-logo.svg";
+      src = "/logos/tailwind-logo.svg";
       alt = "TailwindCSS Logo";
       label = "TailwindCSS";
       break;
     case "postgres":
-      src = "/postgres-logo.png";
+      src = "/logos/postgres-logo.png";
       alt = "PostgresSQL Logo";
       label = "PostgresSQL";
       break;
@@ -41,7 +41,7 @@ export default function TechBadge({ brand }) {
         }
       )}
     >
-      <Image src={src} height={18} width={18} alt={alt} />
+      <Image src={src} height={18} width={18} alt={alt} className="h-4 w-4" />
 
       <p className="tracking-widest text-xs text-nowrap">{label}</p>
     </div>

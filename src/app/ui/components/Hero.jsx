@@ -1,11 +1,18 @@
 "use client";
 
 import HeroButton from "@/app/ui/components/HeroButton";
-import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
 import Underline from "@/app/ui/components/Underline";
 import { usePathname } from "next/navigation";
+import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
+
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
 export default function Hero() {
+  async function handleTest() {
+    const user = await prisma;
+  }
+
   const pathname = usePathname();
   return (
     <div className="flex flex-col gap-12">
@@ -29,13 +36,15 @@ export default function Hero() {
         <HeroButton
           isFilled={true}
           iconRight={
-            <DriveFileRenameOutlineOutlinedIcon className="text-background" />
+            <DriveFileRenameOutlineOutlinedIcon sx={{ color: "#0a0a0a" }} />
           }
         >
           HIRE ME
         </HeroButton>
 
         <HeroButton>GET TO KNOW ME &rarr;</HeroButton>
+
+        <button onClick={handleTest}>TEST</button>
       </div>
     </div>
   );

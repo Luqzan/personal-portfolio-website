@@ -2,7 +2,7 @@ import TechBadge from "@/app/ui/components/TechBadge";
 import Image from "next/image";
 
 export default function ProjectCard() {
-  const technologies = ["nextjs", "typescript", "tailwind", "postgres"];
+  const technologies = ["nextjs", "typescript", "tailwindcss", "postgresql"];
 
   return (
     <div className="flex flex-col gap-8 p-8 border border-foreground rounded-lg w-full">

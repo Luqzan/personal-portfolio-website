@@ -13,19 +13,35 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Projects {
+model Project {
   id Int @id @default(autoincrement())
-  title Technologies[]
-  technologies String
-  pictures ProjectPictures[]
-  link String
-  github_link String?
+  title String
+  type ProjectType
+  role ProjectRole
   status ProjectStatus
-  start_date DateTime @db.Date
-  finish_date DateTime? @db.Date
-  created_date DateTime @default(now())
-  updated_date DateTime?
-  deleted_date DateTime?
+  technologies TechnologiesOnProjects[]
+  liveLink String?
+  githubLink String?
+  downloadLink String?
+  pictures ProjectPictures[]
+  startDate DateTime @db.Date
+  finishDate DateTime? @db.Date
+  createdDate DateTime @default(now())
+  updatedDate DateTime?
+  deletedDate DateTime?
+}
+
+enum ProjectType {
+  WebApplication @map("Web Application")
+  MobileApplication @map("Mobile Application")
+  Website
+}
+
+enum ProjectRole {
+  FullStackDeveloper @map("Full-Stack Developer")
+  FrontEndDeveloper @map("Front-End Developer")
+  BackEndDeveloper @map("Back-End Developer")
+  Designer
 }
 
 enum ProjectStatus {
@@ -34,29 +50,32 @@ enum ProjectStatus {
   Abandoned
 }
 
-model Technologies {
-  id Int @id @default(autoincrement())
-  project Projects @relation(fields: [project_id], references: [id])
-  project_id Int
-  technology Technology
-  created_date DateTime @default(now())
-  updated_date DateTime?
-  deleted_date DateTime?
-}
-
-enum Technology {
-  nextjs
-  postgresql
-  tailwindcss
-  typescript
-  javascript
-}
-
 model ProjectPictures {
   id Int @id @default(autoincrement())
-  project Projects @relation(fields: [project_id], references: [id])
-  project_id Int
-  created_date DateTime @default(now())
-  updated_date DateTime?
-  deleted_date DateTime?
+  project Project @relation(fields: [projectId], references: [id])
+  projectId Int
+  src String
+  alt String
+}
+
+model Technology {
+  id Int @id @default(autoincrement())
+  name String
+  label String
+  src String
+  alt String
+  color String
+  projects TechnologiesOnProjects[]
+  createdDate DateTime @default(now())
+  updatedDate DateTime?
+  deletedDate DateTime?
+}
+
+model TechnologiesOnProjects {
+  project Project @relation(fields: [projectId], references: [id])
+  projectId Int
+  technology Technology @relation(fields: [technologyId], references: [id])
+  technologyId Int
+
+  @@id([projectId, technologyId])
 }

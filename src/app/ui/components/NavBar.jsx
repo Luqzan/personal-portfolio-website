@@ -78,7 +78,7 @@ export default function NavBar() {
       <SignedIn>
         {pathname === "/projects" ? (
           <CustomButton
-            className="absolute right-0 -bottom-14"
+            className="absolute right-0 -bottom-16"
             link="/projects/create"
             isFilled={true}
             iconRight={<AddOutlinedIcon sx={{ color: iconColor }} />}

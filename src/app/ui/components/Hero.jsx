@@ -5,12 +5,9 @@ import Underline from "@/app/ui/components/Underline";
 import { usePathname } from "next/navigation";
 import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
 
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
-
 export default function Hero() {
   async function handleTest() {
-    const user = await prisma;
+    console.log(process.env.NEXT_PUBLIC_TEST_VARIABLE);
   }
 
   const pathname = usePathname();

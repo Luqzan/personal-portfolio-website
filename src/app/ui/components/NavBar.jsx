@@ -13,10 +13,15 @@ import {
 } from "@clerk/nextjs";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import CustomButton from "@/app/ui/components/CustomButton";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import { SignedIn } from "@clerk/nextjs";
+import { useState } from "react";
 
 export default function NavBar() {
   const pathname = usePathname();
   const { isSignedIn } = useAuth();
+  const [iconColor, setIconColor] = useState("#0a0a0a");
 
   const pages = [
     {
@@ -43,7 +48,7 @@ export default function NavBar() {
           </ClerkLoading>
 
           <ClerkLoaded>
-            <SignOutButton>
+            <SignOutButton redirectUrl={pathname}>
               <LockOpenOutlinedIcon
                 fontSize="small"
                 sx={{ color: "#ededed" }}
@@ -64,14 +69,32 @@ export default function NavBar() {
           </ClerkLoaded>
         </div>
       ),
-      link: isSignedIn ? "/logout-url-here" : "/signin",
+      link: isSignedIn ? pathname : "/signin",
     },
   ];
 
   return (
-    <nav>
+    <nav className="relative">
+      <SignedIn>
+        {pathname === "/projects" ? (
+          <CustomButton
+            className="absolute right-0 -bottom-14"
+            link="/projects/create"
+            isFilled={true}
+            iconRight={<AddOutlinedIcon sx={{ color: iconColor }} />}
+            setIconColor={setIconColor}
+          >
+            ADD PROJECT
+          </CustomButton>
+        ) : null}
+      </SignedIn>
+
       <ul className="flex flex-row items-center justify-end gap-4">
         {pages.map((page) => {
+          const isActive =
+            page.link === "/"
+              ? pathname === "/"
+              : pathname.startsWith(page.link); // Only use startsWith for non-root links
           return (
             <li key={page.id}>
               <Link
@@ -80,11 +103,7 @@ export default function NavBar() {
                   "w-full h-full font-sans font-light uppercase tracking-widest"
                 )}
               >
-                {pathname === page.link ? (
-                  <Underline>{page.label}</Underline>
-                ) : (
-                  page.label
-                )}
+                {isActive ? <Underline>{page.label}</Underline> : page.label}
               </Link>
             </li>
           );

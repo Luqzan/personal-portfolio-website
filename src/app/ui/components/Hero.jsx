@@ -1,18 +1,16 @@
 "use client";
 
-import HeroButton from "@/app/ui/components/HeroButton";
+import CustomButton from "@/app/ui/components/CustomButton";
 import Underline from "@/app/ui/components/Underline";
 import { usePathname } from "next/navigation";
 import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
+import { useState } from "react";
 
 export default function Hero() {
-  async function handleTest() {
-    console.log(process.env.NEXT_PUBLIC_TEST_VARIABLE);
-  }
-
   const pathname = usePathname();
+  const [iconColor, setIconColor] = useState("#0a0a0a");
   return (
-    <div className="flex flex-col gap-12">
+    <div className="relative flex flex-col gap-12">
       <div className="flex flex-col gap-6">
         <p className="text-center font-mono text-3xl font-extralight tracking-wider">
           WELCOME TO MY
@@ -30,18 +28,17 @@ export default function Hero() {
       </div>
 
       <div className="flex flex-wrap justify-center gap-6">
-        <HeroButton
+        <CustomButton
           isFilled={true}
           iconRight={
-            <DriveFileRenameOutlineOutlinedIcon sx={{ color: "#0a0a0a" }} />
+            <DriveFileRenameOutlineOutlinedIcon sx={{ color: iconColor }} />
           }
+          setIconColor={setIconColor}
         >
           HIRE ME
-        </HeroButton>
+        </CustomButton>
 
-        <HeroButton>GET TO KNOW ME &rarr;</HeroButton>
-
-        <button onClick={handleTest}>TEST</button>
+        <CustomButton>GET TO KNOW ME &rarr;</CustomButton>
       </div>
     </div>
   );

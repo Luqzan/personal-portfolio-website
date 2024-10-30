@@ -42,7 +42,6 @@ CREATE TABLE "Technology" (
     "name" TEXT NOT NULL,
     "label" TEXT NOT NULL,
     "src" TEXT NOT NULL,
-    "alt" TEXT NOT NULL,
     "color" TEXT NOT NULL,
     "createdDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedDate" TIMESTAMP(3),
@@ -67,4 +66,3 @@ ALTER TABLE "TechnologiesOnProjects" ADD CONSTRAINT "TechnologiesOnProjects_proj
 
 -- AddForeignKey
 ALTER TABLE "TechnologiesOnProjects" ADD CONSTRAINT "TechnologiesOnProjects_technologyId_fkey" FOREIGN KEY ("technologyId") REFERENCES "Technology"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-

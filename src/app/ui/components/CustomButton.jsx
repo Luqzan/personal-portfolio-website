@@ -19,11 +19,11 @@ export default function CustomButton({
       }}
       href={link}
       className={clsx(
-        `flex w-fit font-mono text-lg tracking-widest py-1 font-extralight ${className}`,
+        `flex w-fit font-mono text-lg tracking-widest py-1 font-medium ${className}`,
         {
           "border-b border-foreground text-foreground hover:text-accent-600 hover:border-accent-600":
             !isFilled,
-          "bg-foreground text-background px-4 rounded-lg font-semibold hover:bg-accent-600 hover:text-foreground":
+          "bg-foreground text-background px-4 rounded-lg hover:bg-accent-600 hover:text-foreground":
             isFilled,
         }
       )}

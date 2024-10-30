@@ -2,15 +2,13 @@
 
 import CustomButton from "@/app/ui/components/CustomButton";
 import Underline from "@/app/ui/components/Underline";
-import { usePathname } from "next/navigation";
 import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
 import { useState } from "react";
 
 export default function Hero() {
-  const pathname = usePathname();
   const [iconColor, setIconColor] = useState("#0a0a0a");
   return (
-    <div className="relative flex flex-col gap-12">
+    <div className="relative flex flex-col gap-12 px-2 md:px-0">
       <div className="flex flex-col gap-6">
         <p className="text-center font-mono text-3xl font-extralight tracking-wider">
           WELCOME TO MY

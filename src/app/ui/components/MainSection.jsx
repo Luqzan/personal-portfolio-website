@@ -9,7 +9,7 @@ export default function MainSection({ children }) {
   return (
     <main className="h-full w-full flex flex-row flex-nowrap px-2 md:px-8 md:gap-8 items-center justify-evenly overflow-hidden max-w-screen-xl">
       <div
-        className={clsx("flex md:flex items-center", {
+        className={clsx("flex-1 flex md:flex justify-center", {
           hidden: pathname !== "/",
         })}
       >
@@ -17,11 +17,11 @@ export default function MainSection({ children }) {
       </div>
 
       <div
-        className={clsx("h-full w-full max-w-md", {
+        className={clsx("flex-1 flex justify-center", {
           hidden: pathname === "/",
         })}
       >
-        <section className="h-full flex items-center">{children}</section>
+        {children}
       </div>
     </main>
   );

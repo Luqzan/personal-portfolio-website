@@ -53,13 +53,13 @@ export default function RootLayout({ children }) {
               </div>
             </div>
 
-            <div className="w-full h-[8vh] bg-gradient-to-b from-background to-transparent" />
+            <div className="w-full h-[6vh] bg-gradient-to-b from-background to-transparent" />
           </header>
 
           <MainSection>{children}</MainSection>
 
           <footer className="fixed bottom-0 flex flex-col w-full max-w-screen-xl">
-            <div className="w-full h-[8vh] bg-gradient-to-t from-background to-transparent" />
+            <div className="w-full h-[6vh] bg-gradient-to-t from-background to-transparent" />
 
             <div className="flex flex-row p-8 bg-background">
               <div className="">Test</div>

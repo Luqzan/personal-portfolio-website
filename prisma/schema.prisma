@@ -25,7 +25,7 @@ model Project {
   downloadLink String?
   pictures ProjectPictures[]
   startDate DateTime @db.Date
-  finishDate DateTime? @db.Date
+  completeDate DateTime? @db.Date
   createdDate DateTime @default(now())
   updatedDate DateTime?
   deletedDate DateTime?
@@ -63,7 +63,6 @@ model Technology {
   name String
   label String
   src String
-  alt String
   color String
   projects TechnologiesOnProjects[]
   createdDate DateTime @default(now())

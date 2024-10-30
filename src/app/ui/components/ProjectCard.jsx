@@ -1,11 +1,11 @@
-import TechBadge from "@/app/ui/components/TechBadge";
 import Image from "next/image";
+import TechBadges from "@/app/ui/components/TechBadges";
 
 export default function ProjectCard() {
   const technologies = ["nextjs", "typescript", "tailwindcss", "postgresql"];
 
   return (
-    <div className="flex flex-col gap-8 p-8 border border-foreground rounded-lg w-full">
+    <div className="flex flex-col gap-8 p-8 border border-foreground rounded-lg">
       <h3 className="font-mono font-extralight text-2xl">
         nextjs-financial-dashboard
       </h3>
@@ -20,11 +20,7 @@ export default function ProjectCard() {
         />
       </figure>
 
-      <div className="flex flex-row flex-wrap gap-2">
-        {technologies.map((tech) => {
-          return <TechBadge key={tech} brand={tech} />;
-        })}
-      </div>
+      <TechBadges technologies={technologies} />
     </div>
   );
 }

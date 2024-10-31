@@ -1,3 +1,5 @@
+import CustomError from "./CustomError";
+
 export default function CustomInput({
   type,
   label,
@@ -31,12 +33,7 @@ export default function CustomInput({
       />
 
       {errors.map((error) => (
-        <p
-          className="font-sans font-light text-red-500 text-sm tracking-widest"
-          key={error}
-        >
-          {error}
-        </p>
+        <CustomError key={error} error={error} />
       ))}
     </div>
   );

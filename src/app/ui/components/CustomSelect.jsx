@@ -1,11 +1,12 @@
+import CustomError from "./CustomError";
+
 export default function CustomSelect({
   label,
   name,
   value,
   onChange,
-  options = [],
+  options,
   errors = [],
-  defaultValue,
 }) {
   return (
     <div className="w-full flex flex-col gap-2">
@@ -22,9 +23,8 @@ export default function CustomSelect({
         name={name}
         value={value}
         onChange={onChange}
-        defaultValue={defaultValue}
       >
-        <option value={""}>{`Choose ${label}`}</option>
+        <option value="">{`Choose ${label}`}</option>
 
         {options.map((option) => (
           <option key={option.value} value={option.value}>
@@ -34,12 +34,7 @@ export default function CustomSelect({
       </select>
 
       {errors.map((error) => (
-        <p
-          className="font-sans font-light text-red-500 text-sm tracking-widest"
-          key={error}
-        >
-          {error}
-        </p>
+        <CustomError key={error} error={error} />
       ))}
     </div>
   );

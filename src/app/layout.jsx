@@ -3,6 +3,9 @@ import { geistMono, geistSans } from "@/app/ui/fonts";
 import NavBar from "@/app/ui/components/NavBar";
 import MainSection from "@/app/ui/components/MainSection";
 import { ClerkProvider } from "@clerk/nextjs";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { fileRouter } from "@/app/api/uploadthing/core";
+import { extractRouterConfig } from "uploadthing/server";
 
 export const metadata = {
   title: {
@@ -46,6 +49,8 @@ export default function RootLayout({ children }) {
         }}
       >
         <body className="h-full antialiased flex justify-center">
+          <NextSSRPlugin routerConfig={extractRouterConfig(fileRouter)} />
+
           <header className="fixed top-0 flex flex-col w-full max-w-screen-xl">
             <div className="flex flex-row p-8 bg-background font-">
               <div className="ml-auto">

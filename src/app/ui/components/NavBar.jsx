@@ -48,7 +48,7 @@ export default function NavBar() {
           </ClerkLoading>
 
           <ClerkLoaded>
-            <SignOutButton redirectUrl={pathname}>
+            <SignOutButton>
               <LockOpenOutlinedIcon
                 fontSize="small"
                 sx={{ color: "#ededed" }}

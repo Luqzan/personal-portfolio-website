@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
+import { setProject } from "@/app/lib/data";
 
 const projectSchema = z.object({
   title: z
@@ -33,14 +34,8 @@ const projectSchema = z.object({
     .string({ message: "Download link must be a string" })
     .url({ message: "Download link must be a URL" })
     .optional(),
-  startDate: z
-    .string({ message: "Start date must be a string" })
-    .date({ message: "Start date must be a date" }),
-  completeDate: z
-    .string({ message: "Complete date must be a string" })
-    .date({ message: "Complete date must be a date" })
-    .optional(),
-  upload: z.any().optional(),
+  startDate: z.string().date(),
+  completeDate: z.string().date().optional(),
 });
 
 export async function createProject(prevState, formData) {
@@ -55,7 +50,6 @@ export async function createProject(prevState, formData) {
     downloadLink: formData.get("downloadLink"),
     startDate: formData.get("startDate"),
     completeDate: formData.get("completeDate"),
-    upload: formData.get("upload"),
   };
 
   const validatedFields = projectSchema.safeParse(dataInput);
@@ -67,22 +61,14 @@ export async function createProject(prevState, formData) {
     };
   }
 
-  // const {
-  //   title,
-  //   type,
-  //   role,
-  //   status,
-  //   technologies,
-  //   liveLink,
-  //   githubLink,
-  //   downloadLink,
-  //   startDate,
-  //   completeDate,
-  //   upload,
-  // } = validatedFields.data;
+  validatedFields.data.startDate =
+    validatedFields.data.startDate + "T00:00:00.000Z";
 
-  console.log(validatedFields.data);
+  validatedFields.data.completeDate =
+    validatedFields.data.completeDate + "T00:00:00.000Z";
+
+  const projectId = await setProject(validatedFields.data);
 
   revalidatePath("/projects");
-  redirect("/projects");
+  redirect(`/projects/${projectId}/upload-image`);
 }

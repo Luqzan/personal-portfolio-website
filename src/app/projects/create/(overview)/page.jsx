@@ -1,11 +1,11 @@
 "use client";
+
 import { createProject } from "@/app/lib/actions";
 import Box from "@/app/ui/components/Box";
 import CustomInput from "@/app/ui/components/CustomInput";
 import CustomSelect from "@/app/ui/components/CustomSelect";
 import Image from "next/image";
 import { useState, useEffect, useActionState } from "react";
-import ClearIcon from "@mui/icons-material/Clear";
 import ClearButton from "@/app/ui/components/ClearButton";
 
 export default function Page() {
@@ -97,7 +97,6 @@ export default function Page() {
                 { value: "Website", label: "Website" },
               ]}
               errors={state.errors?.type && state.errors.type}
-              defaultValue={state.defaultValues.type}
             />
 
             <CustomSelect
@@ -112,7 +111,6 @@ export default function Page() {
                 { value: "BackEndDeveloper", label: "Back-End Developer" },
               ]}
               errors={state.errors?.role && state.errors.role}
-              defaultValue={state.defaultValues.role}
             />
           </div>
 
@@ -146,7 +144,6 @@ export default function Page() {
                   { value: "Abandoned", label: "Abandoned" },
                 ]}
                 errors={state.errors?.status && state.errors.status}
-                defaultValue={state.defaultValues.status}
               />
             </div>
           </div>
@@ -236,13 +233,16 @@ export default function Page() {
             </div>
           </div>
 
-          <CustomInput
-            type={"file"}
-            label={"Upload Image"}
-            name={"upload"}
-            multiple={true}
-            errors={state.errors?.upload && state.errors.upload}
-          />
+          {/* <CustomUploadButton
+            endpoint="projectImageUploader"
+            onClientUploadComplete={(file) => {
+              console.log(file);
+            }}
+            onUploadError={(e) => {
+              const error = { test: e };
+              console.log(error.test.cause);
+            }}
+          /> */}
 
           <button
             className="mt-2 flex w-fit font-mono text-lg tracking-widest py-1 font-medium bg-foreground text-background px-4 rounded-lg hover:bg-accent-600 hover:text-foreground"

@@ -1,3 +1,4 @@
+import { storeProjectImages } from "@/app/lib/data";
 import { currentUser } from "@clerk/nextjs/server";
 import { createUploadthing } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
@@ -18,12 +19,16 @@ export const fileRouter = {
         throw new UploadThingError("Unauthorized");
       }
 
-      return { user: user };
+      return { user: user, projectId: req.headers.get("projectid") };
     })
     .onUploadError(async ({ error, fileKey }) => {
       console.error(error, fileKey);
     })
     .onUploadComplete(async ({ metadata, file }) => {
-      console.log(file);
+      const result = storeProjectImages(file, metadata.projectId);
+
+      if (!result) {
+        console.error("Error storing picture data into database.");
+      }
     }),
 };

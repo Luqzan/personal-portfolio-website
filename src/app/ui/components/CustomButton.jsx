@@ -19,7 +19,7 @@ export default function CustomButton({
       }}
       href={link}
       className={clsx(
-        `flex w-fit font-mono text-lg tracking-widest py-1 font-medium ${className}`,
+        `flex w-fit font-mono text-lg tracking-widest py-1 font-medium hover:-translate-y-1 hover:scale-110 transition ease-out duration-300 ${className}`,
         {
           "border-b border-foreground text-foreground hover:text-accent-600 hover:border-accent-600":
             !isFilled,

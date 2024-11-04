@@ -1,18 +1,33 @@
 import prisma from "@/app/lib/prisma";
 
-export async function getAllTechnologies(columns = []) {
-  try {
-    const select =
-      columns.length > 0
-        ? Object.fromEntries(columns.map((column) => [column, true]))
-        : undefined;
+export async function getAllTechnologies(columns, orderBy) {
+  const selectQ =
+    columns && columns.length > 0
+      ? Object.fromEntries(columns.map((column) => [column, true]))
+      : {
+          id: true,
+          name: true,
+          label: true,
+          src: true,
+          color: true,
+          relevanceRank: true,
+        };
 
+  const orderByQ =
+    orderBy && orderBy !== "name"
+      ? [{ [orderBy]: "asc" }, { name: "asc" }]
+      : { name: "asc" };
+
+  console.log(orderByQ);
+
+  try {
     return await prisma.technology.findMany({
-      select,
+      orderBy: orderByQ,
+      select: selectQ,
     });
   } catch (err) {
     console.error("Error fetching all technologies:", err);
-    return [];
+    return null;
   }
 }
 
@@ -26,14 +41,18 @@ export async function getTechnologiesByName(technologies) {
       },
     });
 
-    return result;
+    if (result) {
+      return result;
+    } else {
+      return null;
+    }
   } catch (err) {
     console.error("Error fetching technologies by name:", err);
-    return [];
+    return null;
   }
 }
 
-export async function setProject(data) {
+export async function storeProject(data) {
   const technologies = data.technologies.split(",").map((item) => item.trim());
 
   let technologyIds = [];
@@ -51,12 +70,10 @@ export async function setProject(data) {
     });
   } catch (err) {
     console.error("Error retrieving technology IDs:", err);
-    return;
+    return null;
   }
 
-  const technologiesQ = technologyIds.map((tech) => ({
-    technology: { connect: { id: tech.id } },
-  }));
+  const technologiesQ = technologyIds.map((tech) => ({ id: tech.id }));
 
   const projectQ = {
     data: {
@@ -69,22 +86,96 @@ export async function setProject(data) {
       downloadLink: data.downloadLink,
       startDate: data.startDate,
       completeDate: data.completeDate,
-      technologies: { create: technologiesQ },
+      technologies: { connect: technologiesQ },
     },
   };
 
   let result;
-
   try {
     result = await prisma.project.create(projectQ);
   } catch (err) {
-    console.error("Error creating project:", err);
-    return;
+    console.error("Error storing project:", err);
+    return null;
   }
 
   if (result.id) {
     return result.id;
   } else {
-    return;
+    return null;
+  }
+}
+
+export async function storeProjectImages(data, projectId) {
+  try {
+    const result = await prisma.projectPictures.create({
+      data: {
+        name: data.name,
+        type: data.type,
+        key: data.key,
+        fileHash: data.fileHash,
+        project: { connect: { id: Number(projectId) } },
+      },
+    });
+
+    return result.id;
+  } catch (err) {
+    console.error("Error storing project images:", err);
+    return null;
+  }
+}
+
+export async function getAllProjects(
+  projectColumns,
+  technologyColumns,
+  pictureColumns
+) {
+  const picturesQ =
+    pictureColumns && pictureColumns.length > 0
+      ? Object.fromEntries(pictureColumns.map((column) => [column, true]))
+      : { id: true, name: true, type: true, key: true, fileHash: true };
+
+  const technologiesQ =
+    technologyColumns && technologyColumns.length > 0
+      ? Object.fromEntries(technologyColumns.map((column) => [column, true]))
+      : {
+          id: true,
+          name: true,
+          label: true,
+          src: true,
+          color: true,
+          relevanceRank: true,
+          officialLink: true,
+        };
+
+  const projectQ =
+    projectColumns && projectColumns.length > 0
+      ? Object.fromEntries(projectColumns.map((column) => [column, true]))
+      : {
+          id: true,
+          title: true,
+          type: true,
+          role: true,
+          status: true,
+          liveLink: true,
+          githubLink: true,
+          downloadLink: true,
+          startDate: true,
+          completeDate: true,
+        };
+
+  try {
+    return await prisma.project.findMany({
+      select: {
+        ...projectQ,
+        pictures: { select: picturesQ },
+        technologies: {
+          orderBy: [{ relevanceRank: "asc" }, { name: "asc" }],
+          select: technologiesQ,
+        },
+      },
+    });
+  } catch (err) {
+    console.error("Error fetching all technologies:", err);
+    return null;
   }
 }

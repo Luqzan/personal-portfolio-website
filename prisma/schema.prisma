@@ -19,7 +19,7 @@ model Project {
   type ProjectType
   role ProjectRole
   status ProjectStatus
-  technologies TechnologiesOnProjects[]
+  technologies Technology[]
   liveLink String?
   githubLink String?
   downloadLink String?
@@ -38,9 +38,9 @@ enum ProjectType {
 }
 
 enum ProjectRole {
-  FullStackDeveloper @map("Full-Stack Developer")
-  FrontEndDeveloper @map("Front-End Developer")
-  BackEndDeveloper @map("Back-End Developer")
+  FullStackEngineer @map("Full-Stack Engineer")
+  FrontEndEngineer @map("Front-End Engineer")
+  BackEndEngineer @map("Back-End Engineer")
   Designer
 }
 
@@ -54,8 +54,13 @@ model ProjectPictures {
   id Int @id @default(autoincrement())
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   projectId Int
-  src String
-  alt String
+  name String
+  type String
+  key String
+  fileHash String
+  createdAt DateTime @default(now())
+  updatedAt DateTime?
+  deletedAt DateTime?
 }
 
 model Technology {
@@ -64,17 +69,10 @@ model Technology {
   label String
   src String
   color String
-  projects TechnologiesOnProjects[]
+  officialLink String
+  relevanceRank Int
+  projects Project[]
   createdAt DateTime @default(now())
   updatedAt DateTime?
   deletedAt DateTime?
-}
-
-model TechnologiesOnProjects {
-  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  projectId Int
-  technology Technology @relation(fields: [technologyId], references: [id])
-  technologyId Int
-
-  @@id([projectId, technologyId])
 }

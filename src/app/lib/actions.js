@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { setProject } from "@/app/lib/data";
+import { storeProject } from "@/app/lib/data";
 
 const projectSchema = z.object({
   title: z
@@ -12,33 +12,47 @@ const projectSchema = z.object({
   type: z.enum(["WebApplication", "MobileApplication", "Website"], {
     message: "Type is required",
   }),
-  role: z.enum(
-    ["FullStackDeveloper", "FrontEndDeveloper", "BackEndDeveloper"],
-    { message: "Role is required" }
-  ),
+  role: z.enum(["FullStackEngineer", "FrontEndEngineer", "BackEndEngineer"], {
+    message: "Role is required",
+  }),
   status: z.enum(["Ongoing", "Completed", "Abandoned"], {
     message: "Status is required",
   }),
-  technologies: z
-    .string({ message: "Technologies must be a string" })
-    .min(1, "Choose at least one technology"),
-  liveLink: z
-    .string({ message: "Live link must be a string" })
-    .url({ message: "Live link must be a URL" })
-    .optional(),
-  githubLink: z
-    .string({ message: "Github link must be a string" })
-    .url({ message: "Github link must be a URL" })
-    .optional(),
-  downloadLink: z
-    .string({ message: "Download link must be a string" })
-    .url({ message: "Download link must be a URL" })
-    .optional(),
+  technologies: z.union([
+    z
+      .string({ message: "Technologies must be a string" })
+      .min(1, "Choose at least one technology"),
+    z.string().optional(),
+  ]),
+
+  liveLink: z.union([
+    z
+      .string({ message: "Live link must be a string" })
+      .url({ message: "Live link must be a URL" }),
+    z.string().optional(),
+  ]),
+
+  githubLink: z.union([
+    z
+      .string({ message: "Github link must be a string" })
+      .url({ message: "Github link must be a URL" }),
+    z.string().optional(),
+  ]),
+
+  downloadLink: z.union([
+    z
+      .string({ message: "Download link must be a string" })
+      .url({ message: "Download link must be a URL" }),
+    z.string().optional(),
+  ]),
+
   startDate: z.string().date(),
-  completeDate: z.string().date().optional(),
+  completeDate: z.union([z.string().date(), z.string().optional()]),
 });
 
 export async function createProject(prevState, formData) {
+  console.log(formData.get("role"));
+
   const dataInput = {
     title: formData.get("title"),
     type: formData.get("type"),
@@ -61,14 +75,24 @@ export async function createProject(prevState, formData) {
     };
   }
 
-  validatedFields.data.startDate =
-    validatedFields.data.startDate + "T00:00:00.000Z";
+  validatedFields.data = {
+    ...validatedFields.data,
+    startDate: `${validatedFields.data.startDate}T00:00:00.000Z`,
+    completeDate: validatedFields.data.completeDate
+      ? `${validatedFields.data.completeDate}T00:00:00.000Z`
+      : null,
+  };
 
-  validatedFields.data.completeDate =
-    validatedFields.data.completeDate + "T00:00:00.000Z";
+  const projectId = await storeProject(validatedFields.data);
 
-  const projectId = await setProject(validatedFields.data);
-
-  revalidatePath("/projects");
-  redirect(`/projects/${projectId}/upload-image`);
+  if (projectId) {
+    revalidatePath("/projects");
+    redirect(`/projects/`);
+  } else {
+    return {
+      defaultValues: dataInput,
+      message: "Failed to store project.",
+      errors: {},
+    };
+  }
 }

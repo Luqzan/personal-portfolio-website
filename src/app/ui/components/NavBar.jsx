@@ -78,7 +78,7 @@ export default function NavBar() {
       <SignedIn>
         {pathname === "/projects" ? (
           <CustomButton
-            className="absolute right-0 -bottom-16"
+            className="absolute right-0 -bottom-16 hover:-translate-y-1 hover:scale-110 transition ease-out duration-300"
             link="/projects/create"
             isFilled={true}
             iconRight={<AddOutlinedIcon sx={{ color: iconColor }} />}
@@ -96,7 +96,10 @@ export default function NavBar() {
               ? pathname === "/"
               : pathname.startsWith(page.link); // Only use startsWith for non-root links
           return (
-            <li key={page.id}>
+            <li
+              key={page.id}
+              className="hover:-translate-y-1 hover:scale-110 transition ease-out duration-300"
+            >
               <Link
                 href={page.link}
                 className={clsx(

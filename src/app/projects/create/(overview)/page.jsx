@@ -4,9 +4,9 @@ import { createProject } from "@/app/lib/actions";
 import Box from "@/app/ui/components/Box";
 import CustomInput from "@/app/ui/components/CustomInput";
 import CustomSelect from "@/app/ui/components/CustomSelect";
-import Image from "next/image";
 import { useState, useEffect, useActionState } from "react";
 import ClearButton from "@/app/ui/components/ClearButton";
+import TechBadge from "@/app/ui/components/TechBadge";
 
 export default function Page() {
   const initialState = {
@@ -44,6 +44,7 @@ export default function Page() {
           },
           body: JSON.stringify({
             columns: ["id", "name", "label", "src", "color"],
+            orderBy: "name",
           }),
         });
 
@@ -104,11 +105,11 @@ export default function Page() {
               name={"role"}
               options={[
                 {
-                  value: "FullStackDeveloper",
-                  label: "Full-Stack Developer",
+                  value: "FullStackEngineer",
+                  label: "Full-Stack Engineer",
                 },
-                { value: "FrontEndDeveloper", label: "Front-End Developer" },
-                { value: "BackEndDeveloper", label: "Back-End Developer" },
+                { value: "FrontEndEngineer", label: "Front-End Engineer" },
+                { value: "BackEndEngineer", label: "Back-End Engineer" },
               ]}
               errors={state.errors?.role && state.errors.role}
             />
@@ -149,32 +150,18 @@ export default function Page() {
           </div>
 
           <div className="flex flex-row flex-wrap gap-2">
-            {technologyList.map((tech) => {
+            {technologyList.map((technology) => {
               return (
-                selectedTechnologies.includes(tech.name) && (
-                  <div
-                    key={tech.id}
-                    className="relative w-fit flex gap-2 items-center py-1 px-2 border rounded-lg flex-shrink-0 group"
-                    style={{ borderColor: tech.color }}
-                  >
-                    <Image
-                      src={tech.src}
-                      height={18}
-                      width={18}
-                      alt={`${tech.label} Logo`}
-                      className="h-4 w-4"
-                    />
+                selectedTechnologies.includes(technology.name) && (
+                  <div key={technology.id} className="relative group">
+                    <TechBadge key={technology.id} technology={technology} />
 
-                    <p className="tracking-widest text-xs text-nowrap">
-                      {tech.label}
-                    </p>
-
-                    <div className="absolute right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-100">
+                    <div className="absolute right-1 top-1 opacity-0 group-hover:opacity-100 transition-opacity duration-100">
                       <ClearButton
                         onClick={(e) => {
                           setSelectedTechnologies(
                             selectedTechnologies.filter(
-                              (selectedTech) => selectedTech !== tech.name
+                              (selectedTech) => selectedTech !== technology.name
                             )
                           );
                         }}

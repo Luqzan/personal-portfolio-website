@@ -20,7 +20,7 @@ export default function CustomUploadButton({
       config={{ appendOnPaste: true, mode: "auto", cn: twMerge }}
       appearance={{
         button:
-          "w-fit uppercase font-mono text-lg tracking-widest py-1 font-medium bg-foreground text-background px-4 rounded-lg hover:bg-accent-600 hover:text-foreground",
+          "w-fit uppercase font-mono text-lg tracking-widest py-1 font-medium bg-foreground text-background px-4 rounded-lg hover:bg-accent-600 hover:text-foreground hover:-translate-y-1 hover:scale-110 transition ease-out duration-300",
         container: "w-fit h-fit flex flex-col gap-1",
         allowedContent: "font-sans text-neutral-500 tracking-widest",
       }}

@@ -2,7 +2,7 @@
 
 import CustomButton from "@/app/ui/components/CustomButton";
 import Underline from "@/app/ui/components/Underline";
-import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
+import { DriveFileRenameOutlineOutlined } from "@mui/icons-material";
 import { useState } from "react";
 
 export default function Hero() {
@@ -29,7 +29,7 @@ export default function Hero() {
         <CustomButton
           isFilled={true}
           iconRight={
-            <DriveFileRenameOutlineOutlinedIcon sx={{ color: iconColor }} />
+            <DriveFileRenameOutlineOutlined sx={{ color: iconColor }} />
           }
           setIconColor={setIconColor}
         >

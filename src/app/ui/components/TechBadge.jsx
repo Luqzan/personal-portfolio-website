@@ -14,7 +14,9 @@ export default function TechBadge({ technology }) {
         className="h-4 w-auto"
       />
 
-      <p className="tracking-widest text-xs text-nowrap">{technology.label}</p>
+      <p className="tracking-widest text-xs text-nowrap text-foreground">
+        {technology.label}
+      </p>
     </div>
   );
 }

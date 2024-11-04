@@ -11,6 +11,7 @@ import { Language } from "@mui/icons-material";
 import { GitHub } from "@mui/icons-material";
 import { DownloadForOffline } from "@mui/icons-material";
 import { SignedIn } from "@clerk/nextjs";
+import clsx from "clsx";
 
 export default function ProjectCard({ data }) {
   const [errorMessage, setErrorMessage] = useState("");
@@ -35,88 +36,92 @@ export default function ProjectCard({ data }) {
   }
 
   return (
-    <div className="flex flex-col gap-4 p-8 border border-foreground rounded-lg">
-      <div className="flex flex-row gap-4 flex-wrap items-center">
-        <h3 className="font-mono font-extralight text-2xl">{data.title}</h3>
+    <Box className="flex flex-col gap-4 pb-6">
+      <div className="flex flex-col gap-2">
+        <div className="flex flex-row gap-2 items-start">
+          <div className="flex-grow flex flex-col">
+            <h3 className="font-mono text-2xl text-foreground">{data.title}</h3>
 
-        <div className="flex flex-row gap-4 flex-nowrap">
-          {data.liveLink && (
-            <Link
-              href={data.liveLink}
-              target="_blank"
-              className="hover:text-accent-600 hover:-translate-y-1 hover:scale-110 transition ease-out duration-300"
-            >
-              <Language />
-            </Link>
-          )}
-
-          {data.githubLink && (
-            <Link
-              href={data.githubLink}
-              target="_blank"
-              className="hover:text-accent-600 hover:-translate-y-1 hover:scale-110 transition ease-out duration-300"
-            >
-              <GitHub />
-            </Link>
-          )}
-
-          {data.downloadLink && (
-            <Link
-              href={data.downloadLink}
-              target="_blank"
-              className="hover:text-accent-600 hover:-translate-y-1 hover:scale-110 transition ease-out duration-300"
-            >
-              <DownloadForOffline />
-            </Link>
-          )}
-        </div>
-      </div>
-
-      <div className="flex flex-row flex-wrap gap-4">
-        <div className="flex flex-col">
-          <h4 className="font-sans text-xs tracking-widest">START DATE:</h4>
-
-          <p className="font-mono font-extralight text-lg tracking-wide">
-            {data.startDate.toLocaleDateString()}
-          </p>
-        </div>
-
-        {data.completeDate && (
-          <div className="flex flex-col">
-            <h4 className="font-sans text-xs tracking-widest">
-              COMPLETION DATE:
-            </h4>
-
-            <p className="font-mono font-extralight text-lg tracking-wide">
-              {data.completeDate.toLocaleDateString()}
+            <p className="uppercase font-sans font-light text-foreground text-xs tracking-widest opacity-80">
+              {data.startDate.toLocaleDateString()}
+              {` - ${
+                data.completeDate
+                  ? data.completeDate.toLocaleDateString()
+                  : "Ongoing"
+              }`}
             </p>
           </div>
-        )}
 
-        <div className="flex flex-col">
-          <h4 className="font-sans text-xs tracking-widest">STATUS:</h4>
+          <div className="flex flex-col gap-2">
+            <p
+              className={clsx(
+                "uppercase font-sans font-light text-xs tracking-widest border rounded-xl px-2 text-nowrap",
+                {
+                  "text-yellow-500 border-yellow-500":
+                    data.status === "Ongoing",
+                  "text-green-500 border-green-500":
+                    data.status === "Completed",
+                  "text-red-500 border-red-500": data.status === "Abandoned",
+                }
+              )}
+            >
+              {data.status === "Ongoing" ? "In Progress" : data.status}
+            </p>
 
-          <p className="font-mono font-extralight text-lg tracking-wide">
-            {data.status}
-          </p>
+            <div className="flex flex-row gap-2 flex-nowrap justify-end">
+              {data.liveLink && (
+                <Link
+                  href={data.liveLink}
+                  target="_blank"
+                  className="hover:-translate-y-1 hover:scale-110 transition ease-out duration-300"
+                >
+                  <Language className="text-foreground" />
+                </Link>
+              )}
+
+              {data.githubLink && (
+                <Link
+                  href={data.githubLink}
+                  target="_blank"
+                  className="hover:-translate-y-1 hover:scale-110 transition ease-out duration-300"
+                >
+                  <GitHub className="text-foreground" />
+                </Link>
+              )}
+
+              {data.downloadLink && (
+                <Link
+                  href={data.downloadLink}
+                  target="_blank"
+                  className="hover:text-accent-600 hover:-translate-y-1 hover:scale-110 transition ease-out duration-300"
+                >
+                  <DownloadForOffline className="text-foreground" />
+                </Link>
+              )}
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div className="flex flex-row flex-wrap gap-4">
-        <div className="flex flex-col">
-          <h4 className="font-sans text-xs tracking-widest">TYPE:</h4>
+        <div className="flex flex-row flex-wrap gap-2">
+          <div className="flex-1 flex flex-col">
+            <h4 className="font-sans font-medium opacity-50 text-xs text-foreground tracking-widest leading-none">
+              TYPE:
+            </h4>
 
-          <p className="font-mono font-extralight text-lg tracking-wide">
-            {data.type}
-          </p>
-        </div>
+            <p className="font-mono font-extralight text-lg tracking-wide leading-none">
+              {data.type}
+            </p>
+          </div>
 
-        <div className="flex flex-col">
-          <h4 className="font-sans text-xs tracking-widest">ROLE:</h4>
+          <div className="flex-1 flex flex-col">
+            <h4 className="font-sans font-medium opacity-50 text-xs text-foreground tracking-widest leading-none">
+              ROLE:
+            </h4>
 
-          <p className="font-mono font-extralight text-lg tracking-wide">
-            {data.role}
-          </p>
+            <p className="font-mono font-extralight text-lg tracking-wide leading-none">
+              {data.role}
+            </p>
+          </div>
         </div>
       </div>
 
@@ -161,6 +166,6 @@ export default function ProjectCard({ data }) {
           </Link>
         ))}
       </div>
-    </div>
+    </Box>
   );
 }

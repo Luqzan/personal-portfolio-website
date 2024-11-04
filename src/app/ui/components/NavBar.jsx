@@ -36,7 +36,7 @@ export default function NavBar() {
     },
     {
       id: 3,
-      label: "Resume",
+      label: "About",
       link: "#",
     },
     {

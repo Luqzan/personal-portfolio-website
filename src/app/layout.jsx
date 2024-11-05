@@ -7,6 +7,7 @@ import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { fileRouter } from "@/app/api/uploadthing/core";
 import { extractRouterConfig } from "uploadthing/server";
 import Image from "next/image";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 
 export const metadata = {
   title: {
@@ -52,54 +53,58 @@ export default function RootLayout({ children }) {
         <body className="relative h-full w-full antialiased flex justify-center">
           <NextSSRPlugin routerConfig={extractRouterConfig(fileRouter)} />
 
-          <div className="absolute w-full h-full flex flex-col -z-50 opacity-40">
-            <Image
-              src="/background/bg-1.jpg"
-              alt="Background Image"
-              quality={100}
-              fill={true}
-              sizes="100vw"
-              className="object-cover"
-            />
-          </div>
-
-          {/* bg-gradient-to-b from-background to-transparent */}
-
-          <div className="absolute w-full h-full flex flex-row -z-40">
-            <div className="flex-1 bg-gradient-to-b from-background to-transparent" />
-            <div className="flex-1 bg-gradient-to-t from-background to-transparent" />
-          </div>
-
-          <div className="h-full w-full max-w-screen-xl">
-            <MainSection>{children}</MainSection>
-          </div>
-
-          <header className="absolute top-0 w-full">
-            <div className="w-full flex flex-col items-center bg-background">
-              <div className="flex flex-row p-8 w-full max-w-screen-xl">
-                <div className="ml-auto">
-                  <NavBar />
-                </div>
-              </div>
+          <AppRouterCacheProvider
+            options={{ key: "css", enableCssLayer: true }}
+          >
+            <div className="absolute w-full h-full flex flex-col -z-50 opacity-40">
+              <Image
+                src="/background/bg-1.jpg"
+                alt="Background Image"
+                quality={100}
+                fill={true}
+                sizes="100vw"
+                className="object-cover"
+              />
             </div>
 
-            <div className="w-full h-[6vh] bg-gradient-to-b from-background to-transparent" />
-          </header>
+            {/* bg-gradient-to-b from-background to-transparent */}
 
-          <footer className="absolute bottom-0 w-full">
-            <div className="w-full h-[6vh] bg-gradient-to-t from-background to-transparent" />
+            <div className="absolute w-full h-full flex flex-col -z-40">
+              <div className="flex-1 bg-gradient-to-b from-background to-transparent" />
+              <div className="flex-1 bg-gradient-to-t from-background to-transparent" />
+            </div>
 
-            <div className="w-full flex flex-col items-center bg-background">
-              <div className="flex flex-row p-8 w-full max-w-screen-xl gap-8">
-                <div className="mr-auto">
-                  <p className="font-sans font-extralight text-xs text-foreground tracking-wide">
-                    © 2024 Luqzan Ariff Bin Mohd Raus. All original content
-                    rights. reserved
-                  </p>
+            <div className="h-full w-full max-w-screen-xl">
+              <MainSection>{children}</MainSection>
+            </div>
+
+            <header className="absolute top-0 w-full">
+              <div className="w-full flex flex-col items-center bg-background">
+                <div className="flex flex-row p-8 w-full max-w-screen-xl">
+                  <div className="ml-auto">
+                    <NavBar />
+                  </div>
                 </div>
               </div>
-            </div>
-          </footer>
+
+              <div className="w-full h-[6vh] bg-gradient-to-b from-background to-transparent" />
+            </header>
+
+            <footer className="absolute bottom-0 w-full">
+              <div className="w-full h-[6vh] bg-gradient-to-t from-background to-transparent" />
+
+              <div className="w-full flex flex-col items-center bg-background">
+                <div className="flex flex-row p-8 w-full max-w-screen-xl gap-8">
+                  <div className="mr-auto">
+                    <p className="font-sans font-extralight text-xs text-foreground tracking-wide">
+                      © 2024 Luqzan Ariff Bin Mohd Raus. All original content
+                      rights reserved.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </footer>
+          </AppRouterCacheProvider>
         </body>
       </ClerkProvider>
     </html>

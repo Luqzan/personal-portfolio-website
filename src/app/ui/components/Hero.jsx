@@ -2,7 +2,6 @@
 
 import CustomButton from "@/app/ui/components/CustomButton";
 import Underline from "@/app/ui/components/Underline";
-import { DriveFileRenameOutlineOutlined } from "@mui/icons-material";
 import { useState } from "react";
 
 export default function Hero() {
@@ -26,17 +25,11 @@ export default function Hero() {
       </div>
 
       <div className="flex flex-wrap justify-center gap-6">
-        <CustomButton
-          isFilled={true}
-          iconRight={
-            <DriveFileRenameOutlineOutlined sx={{ color: iconColor }} />
-          }
-          setIconColor={setIconColor}
-        >
-          HIRE ME
+        <CustomButton link="/about" isFilled={true} setIconColor={setIconColor}>
+          CONTACT ME
         </CustomButton>
 
-        <CustomButton>GET TO KNOW ME &rarr;</CustomButton>
+        <CustomButton link="/projects">MY WORKS &rarr;</CustomButton>
       </div>
     </div>
   );

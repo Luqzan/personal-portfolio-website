@@ -7,21 +7,18 @@ export default function CustomButton({
   iconRight = null,
   className = "",
   link = "#",
-  setIconColor,
+  onMouseOver,
+  onMouseLeave,
 }) {
   return (
     <Link
-      onMouseOver={() => {
-        setIconColor ? setIconColor("#ededed") : null;
-      }}
-      onMouseLeave={() => {
-        setIconColor ? setIconColor("#0a0a0a") : null;
-      }}
+      onMouseOver={onMouseOver}
+      onMouseLeave={onMouseLeave}
       href={link}
       className={clsx(
         `flex w-fit font-mono text-lg tracking-widest py-1 font-medium hover:-translate-y-1 hover:scale-110 transition ease-out duration-300 ${className}`,
         {
-          "border-b border-foreground text-foreground hover:text-accent-600 hover:border-accent-600":
+          "border-b border-foreground text-foreground hover:text-accent-200 hover:border-accent-200":
             !isFilled,
           "bg-foreground text-background px-4 rounded-lg hover:bg-accent-600 hover:text-foreground":
             isFilled,

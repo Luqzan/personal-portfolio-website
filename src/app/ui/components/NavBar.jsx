@@ -11,12 +11,14 @@ import {
   SignOutButton,
   useAuth,
 } from "@clerk/nextjs";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CustomButton from "@/app/ui/components/CustomButton";
-import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { SignedIn } from "@clerk/nextjs";
 import { useState } from "react";
+import {
+  LockOpenOutlined,
+  LockOutlined,
+  AddOutlined,
+} from "@mui/icons-material";
 
 export default function NavBar() {
   const pathname = usePathname();
@@ -37,34 +39,31 @@ export default function NavBar() {
     {
       id: 3,
       label: "About",
-      link: "#",
+      link: "/about",
     },
     {
       id: 4,
       label: isSignedIn ? (
         <div>
           <ClerkLoading>
-            <LockOpenOutlinedIcon fontSize="small" sx={{ color: "#ededed" }} />
+            <LockOpenOutlined fontSize="small" sx={{ color: "#ededed" }} />
           </ClerkLoading>
 
           <ClerkLoaded>
             <SignOutButton>
-              <LockOpenOutlinedIcon
-                fontSize="small"
-                sx={{ color: "#ededed" }}
-              />
+              <LockOpenOutlined fontSize="small" sx={{ color: "#ededed" }} />
             </SignOutButton>
           </ClerkLoaded>
         </div>
       ) : (
         <div>
           <ClerkLoading>
-            <LockOutlinedIcon fontSize="small" sx={{ color: "#ededed" }} />
+            <LockOutlined fontSize="small" sx={{ color: "#ededed" }} />
           </ClerkLoading>
 
           <ClerkLoaded>
             <SignInButton>
-              <LockOutlinedIcon fontSize="small" sx={{ color: "#ededed" }} />
+              <LockOutlined fontSize="small" sx={{ color: "#ededed" }} />
             </SignInButton>
           </ClerkLoaded>
         </div>
@@ -81,8 +80,7 @@ export default function NavBar() {
             className="absolute right-0 -bottom-16 hover:-translate-y-1 hover:scale-110 transition ease-out duration-300"
             link="/projects/create"
             isFilled={true}
-            iconRight={<AddOutlinedIcon sx={{ color: iconColor }} />}
-            setIconColor={setIconColor}
+            iconRight={<AddOutlined />}
           >
             ADD PROJECT
           </CustomButton>

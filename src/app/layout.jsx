@@ -80,21 +80,21 @@ export default function RootLayout({ children }) {
 
             <header className="absolute top-0 w-full">
               <div className="w-full flex flex-col items-center bg-background">
-                <div className="flex flex-row p-8 w-full max-w-screen-xl">
+                <div className="flex flex-row px-8 pt-2 pb-0 sm:py-8 w-full max-w-screen-xl">
                   <div className="ml-auto">
                     <NavBar />
                   </div>
                 </div>
               </div>
 
-              <div className="w-full h-[6vh] bg-gradient-to-b from-background to-red-700" />
+              <div className="w-full h-[3vh] sm:h-[6vh] bg-gradient-to-b from-background to-red-700" />
             </header>
 
             <footer className="absolute bottom-0 w-full">
-              <div className="w-full h-[6vh] bg-gradient-to-t from-background to-red-700" />
+              <div className="w-full h-[3vh] sm:h-[6vh] bg-gradient-to-t from-background to-red-700" />
 
               <div className="w-full flex flex-col items-center bg-background">
-                <div className="flex flex-row p-8 w-full max-w-screen-xl gap-8">
+                <div className="flex flex-row px-8 pb-2 pt-0 sm:py-8 w-full max-w-screen-xl gap-8">
                   <div className="mr-auto">
                     <p className="font-sans font-extralight text-xs text-foreground tracking-wide">
                       © 2024 Luqzan Ariff Bin Mohd Raus. All original content

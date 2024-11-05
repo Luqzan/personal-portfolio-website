@@ -87,11 +87,11 @@ export default function RootLayout({ children }) {
                 </div>
               </div>
 
-              <div className="w-full h-[6vh] bg-gradient-to-b from-background to-transparent" />
+              <div className="w-full h-[6vh] bg-gradient-to-b from-background to-red-700" />
             </header>
 
             <footer className="absolute bottom-0 w-full">
-              <div className="w-full h-[6vh] bg-gradient-to-t from-background to-transparent" />
+              <div className="w-full h-[6vh] bg-gradient-to-t from-background to-red-700" />
 
               <div className="w-full flex flex-col items-center bg-background">
                 <div className="flex flex-row p-8 w-full max-w-screen-xl gap-8">

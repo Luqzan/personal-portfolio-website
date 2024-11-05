@@ -90,8 +90,13 @@ export default function RootLayout({ children }) {
             <div className="w-full h-[6vh] bg-gradient-to-t from-background to-transparent" />
 
             <div className="w-full flex flex-col items-center bg-background">
-              <div className="flex flex-row p-8 w-full max-w-screen-xl">
-                <div className="mr-auto">test</div>
+              <div className="flex flex-row p-8 w-full max-w-screen-xl gap-8">
+                <div className="mr-auto">
+                  <p className="font-sans font-extralight text-xs text-foreground tracking-wide">
+                    © 2024 Luqzan Ariff Bin Mohd Raus. All original content
+                    rights. reserved
+                  </p>
+                </div>
               </div>
             </div>
           </footer>

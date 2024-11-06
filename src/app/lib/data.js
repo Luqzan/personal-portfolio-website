@@ -10,6 +10,7 @@ export async function getAllTechnologies(columns, orderBy) {
           label: true,
           src: true,
           color: true,
+          officialLink: true,
           relevanceRank: true,
         };
 

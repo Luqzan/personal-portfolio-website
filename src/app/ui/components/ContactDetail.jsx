@@ -31,7 +31,7 @@ export default function ContactDetail({ type, href, display }) {
     >
       <div className="size-6 flex items-center justify-center">{icon}</div>
 
-      <p className="font-sans font-light text-lg tracking-wider">{display}</p>
+      <p className="font-sans font-light text-md tracking-wider">{display}</p>
     </Link>
   );
 }

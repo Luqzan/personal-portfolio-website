@@ -80,25 +80,24 @@ export default function RootLayout({ children }) {
 
             <header className="absolute top-0 w-full">
               <div className="w-full flex flex-col items-center bg-background">
-                <div className="flex flex-row px-2 pt-4 pb-0 sm:p-8 w-full max-w-screen-xl">
+                <div className="flex flex-row px-4 pt-4 pb-0 sm:p-8 w-full max-w-screen-xl">
                   <div className="ml-auto">
                     <NavBar />
                   </div>
                 </div>
               </div>
 
-              <div className="w-full h-[4vh] sm:h-[6vh] bg-gradient-to-b from-background to-red-700" />
+              <div className="w-full h-[4vh] sm:h-[6vh] bg-gradient-to-b from-background to-transparent" />
             </header>
 
             <footer className="absolute bottom-0 w-full">
-              <div className="w-full h-[4vh] sm:h-[6vh] bg-gradient-to-t from-background to-red-700" />
+              <div className="w-full h-[4vh] sm:h-[6vh] bg-gradient-to-t from-background to-transparent" />
 
               <div className="w-full flex flex-col items-center bg-background">
-                <div className="flex flex-row px-2 pb-4 pt-0 sm:p-8 w-full max-w-screen-xl gap-8">
+                <div className="flex flex-row px-4 pb-4 pt-0 sm:p-8 w-full max-w-screen-xl gap-8">
                   <div className="mr-auto">
-                    <p className="font-sans font-extralight text-xs text-foreground tracking-wide">
-                      © 2024 Luqzan Ariff Bin Mohd Raus. All original content
-                      rights reserved.
+                    <p className="font-sans font-extralight text-xs text-foreground tracking-wide opacity-60">
+                      © 2024 Luqzan Ariff. All original content rights reserved.
                     </p>
                   </div>
                 </div>

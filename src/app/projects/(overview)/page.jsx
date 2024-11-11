@@ -1,25 +1,13 @@
-import { getAllProjects } from "@/app/lib/data";
-import ProjectCard from "@/app/ui/components/ProjectCard";
+import ProjectList from "@/app/ui/components/ProjectList";
+import ProjectCardSkeleton from "@/app/ui/components/skeletons/ProjectCardSkeleton";
 import { Suspense } from "react";
 
-export default async function Page() {
-  let data;
-  try {
-    data = await getAllProjects();
-  } catch (err) {
-    console.error(err);
-  }
-
+export default function Page() {
   return (
-    <div className="snap-y snap-mandatory h-screen flex flex-col gap-12 py-72 overflow-y-scroll scroll-smooth">
-      {data &&
-        data.map((datum) => (
-          <Suspense fallback={<p>test</p>}>
-            <div key={datum.id} className="snap-center flex">
-              <ProjectCard data={datum} />
-            </div>
-          </Suspense>
-        ))}
+    <div className="h-full w-full">
+      <Suspense fallback={<ProjectCardSkeleton />}>
+        <ProjectList />
+      </Suspense>
     </div>
   );
 }

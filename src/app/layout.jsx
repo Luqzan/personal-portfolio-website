@@ -1,5 +1,5 @@
 import "@/app/globals.css";
-import { geistMono, geistSans } from "@/app/ui/fonts";
+import { geistMono, geistSans } from "@/app/fonts";
 import NavBar from "@/app/ui/components/NavBar";
 import MainSection from "@/app/ui/components/MainSection";
 import { ClerkProvider } from "@clerk/nextjs";

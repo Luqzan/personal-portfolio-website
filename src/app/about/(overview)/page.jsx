@@ -1,21 +1,12 @@
-import { getAllTechnologies } from "@/app/lib/data";
 import AboutSection from "@/app/ui/components/AboutSection";
 import Box from "@/app/ui/components/Box";
 import ContactDetail from "@/app/ui/components/ContactDetail";
-import TechBadge from "@/app/ui/components/TechBadge";
+import TechBadgeSkeleton from "@/app/ui/components/skeletons/TechBadgeSkeleton";
+import TechBadgeList from "@/app/ui/components/TechBadgeList";
 import TextHightlight from "@/app/ui/components/TextHighlight";
-import Link from "next/link";
+import { Suspense } from "react";
 
-export default async function Page() {
-  const data = await getAllTechnologies("relevanceRank", [
-    "id",
-    "name",
-    "label",
-    "src",
-    "color",
-    "officialLink",
-  ]);
-
+export default function Page() {
   return (
     <Box className="flex flex-col gap-8">
       <AboutSection mainHeader="Contact Details">
@@ -56,18 +47,17 @@ export default async function Page() {
       </AboutSection>
 
       <AboutSection mainHeader="Skills & Technologies">
-        <div className="flex flex-row flex-wrap gap-2">
-          {data.map((technology) => (
-            <Link
-              key={technology.id}
-              href={technology.officialLink}
-              target="_blank"
-              className="hover:-translate-y-1 hover:scale-110 transition ease-out duration-300 rounded-lg"
-            >
-              <TechBadge technology={technology} />
-            </Link>
-          ))}
-        </div>
+        <Suspense
+          fallback={
+            <div className="flex flex-row flex-wrap gap-2">
+              {Array.from({ length: 12 }).map((_, index) => (
+                <TechBadgeSkeleton key={index} />
+              ))}
+            </div>
+          }
+        >
+          <TechBadgeList />
+        </Suspense>
       </AboutSection>
 
       <AboutSection mainHeader="Background & Experiences">

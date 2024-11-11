@@ -1,6 +1,6 @@
 import prisma from "@/app/lib/prisma";
 
-export async function getAllTechnologies(columns, orderBy) {
+export async function getAllTechnologies(orderBy, columns) {
   const selectQ =
     columns && columns.length > 0
       ? Object.fromEntries(columns.map((column) => [column, true]))
@@ -17,9 +17,7 @@ export async function getAllTechnologies(columns, orderBy) {
   const orderByQ =
     orderBy && orderBy !== "name"
       ? [{ [orderBy]: "asc" }, { name: "asc" }]
-      : { name: "asc" };
-
-  console.log(orderByQ);
+      : [{ name: "asc" }];
 
   try {
     return await prisma.technology.findMany({
@@ -126,6 +124,7 @@ export async function storeProjectImages(data, projectId) {
 }
 
 export async function getAllProjects(
+  orderBy,
   projectColumns,
   technologyColumns,
   pictureColumns
@@ -166,6 +165,9 @@ export async function getAllProjects(
 
   try {
     return await prisma.project.findMany({
+      orderBy: orderBy
+        ? [{ [orderBy]: "asc" }, { startDate: "asc" }]
+        : [{ startDate: "asc" }],
       select: {
         ...projectQ,
         pictures: { select: picturesQ },

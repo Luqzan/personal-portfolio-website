@@ -7,10 +7,14 @@ import TextHightlight from "@/app/ui/components/TextHighlight";
 import Link from "next/link";
 
 export default async function Page() {
-  const data = await getAllTechnologies(
-    ["id", "name", "label", "src", "color", "officialLink"],
-    "relevanceRank"
-  );
+  const data = await getAllTechnologies("relevanceRank", [
+    "id",
+    "name",
+    "label",
+    "src",
+    "color",
+    "officialLink",
+  ]);
 
   return (
     <Box className="flex flex-col gap-8">

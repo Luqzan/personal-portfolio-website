@@ -15,8 +15,11 @@ import ProjectInfo from "./ProjectInfo";
 
 export default function ProjectCard({ data }) {
   const [errorMessage, setErrorMessage] = useState("");
+  const [uploadedImageKey, setUploadedImageKey] = useState(null);
 
-  function handleUploadComplete(response) {}
+  function handleUploadComplete(response) {
+    setUploadedImageKey(response[0].key);
+  }
 
   function handleUploadError(err) {
     setErrorMessage(err.message);
@@ -36,7 +39,7 @@ export default function ProjectCard({ data }) {
   }
 
   return (
-    <Box className="flex flex-col gap-4">
+    <Box className="flex flex-col gap-8">
       <div className="flex flex-col gap-2 sm:gap-0">
         <div className="flex flex-row gap-2 items-start">
           <div className="flex-grow flex flex-col">
@@ -71,15 +74,19 @@ export default function ProjectCard({ data }) {
         </div>
       </div>
 
-      {data.pictures.length > 0 ? (
-        <Link href={`#`}>
+      {data.pictures.length > 0 || uploadedImageKey ? (
+        <Link
+          href={`https://utfs.io/f/${uploadedImageKey || data.pictures[0].key}`}
+          target="_blank"
+        >
           <figure className="relative border border-foreground rounded-lg overflow-clip w-full aspect-[16/9]">
             <Image
-              src={`https://utfs.io/f/${data.pictures[0].key}`}
+              src={`https://utfs.io/f/${
+                uploadedImageKey || data.pictures[0].key
+              }`}
               alt="Project Thumbnail"
               quality={100}
               fill={true}
-              sizes="100vw"
               className="object-cover"
             />
           </figure>

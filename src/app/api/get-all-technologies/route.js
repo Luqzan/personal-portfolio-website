@@ -4,7 +4,7 @@ export async function POST(request) {
   try {
     const { columns, orderBy } = await request.json();
 
-    const result = await getAllTechnologies(columns, orderBy);
+    const result = await getAllTechnologies(orderBy, columns);
 
     if (result) {
       return new Response(JSON.stringify(result), { status: 200 });

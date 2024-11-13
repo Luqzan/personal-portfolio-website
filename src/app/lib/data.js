@@ -133,6 +133,8 @@ export async function storeProject(data) {
 }
 
 export async function storeProjectImages(data, projectId) {
+  console.log(data);
+
   try {
     const result = await prisma.projectPictures.create({
       data: {

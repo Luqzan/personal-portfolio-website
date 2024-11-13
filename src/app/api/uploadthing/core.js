@@ -25,7 +25,7 @@ export const fileRouter = {
       console.error(error, fileKey);
     })
     .onUploadComplete(async ({ metadata, file }) => {
-      const result = storeProjectImages(file, metadata.projectId);
+      const result = await storeProjectImages(file, metadata.projectId);
 
       if (!result) {
         console.error("Error storing picture data into database.");

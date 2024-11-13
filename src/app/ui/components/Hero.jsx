@@ -25,7 +25,7 @@ export default function Hero() {
       </div>
 
       <div className="flex flex-wrap justify-center gap-6">
-        <CustomButton link="/about" isFilled={true} setIconColor={setIconColor}>
+        <CustomButton link="/about" isFilled={true}>
           CONTACT ME
         </CustomButton>
 

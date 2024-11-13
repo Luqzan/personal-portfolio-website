@@ -72,7 +72,7 @@ export default function Page() {
   }
 
   return (
-    <Box className={"max-h-[60vh] overflow-y-scroll"}>
+    <Box>
       <h2 className="font-mono text-2xl tracking-widest mb-4">
         CREATE NEW PROJECT
       </h2>
@@ -241,44 +241,4 @@ export default function Page() {
       </form>
     </Box>
   );
-}
-
-// {
-//   selectedTechnologies.length > 0 && (
-//     <div className="space-x-2">
-//       {selectedTechnologies.map((tech, index) => (
-//         <span
-//           key={index}
-//           className="inline-block bg-blue-200 text-blue-800 rounded-full px-3 py-1 text-sm font-semibold"
-//         >
-//           {tech}
-//         </span>
-//       ))}
-//     </div>
-//   );
-// }
-
-// {allowedTechnologies.map((tech) => (
-//   <option key={tech} value={tech}>
-//     {tech}
-//   </option>
-// ))}
-
-{
-  /* <div
-                key={datum.id}
-                className="w-fit flex gap-2 items-center py-1 px-2 border rounded-lg flex-shrink-0"
-              >
-                <Image
-                  src={datum.src}
-                  height={18}
-                  width={18}
-                  alt={`${datum.label} Logo`}
-                  className="h-4 w-4"
-                />
-
-                <p className="tracking-widest text-xs text-nowrap">
-                  {datum.label}
-                </p>
-              </div> */
 }

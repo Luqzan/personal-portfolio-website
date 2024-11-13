@@ -14,7 +14,7 @@ export default function CustomInput({
   return (
     <div className="w-full flex flex-col gap-2">
       <label
-        className="uppercase tracking-widest font-sans font-extralight text-sm text-foreground"
+        className="uppercase tracking-widest font-sans font-extralight text-sm text-foreground text-nowrap"
         htmlFor={name}
       >
         {label}

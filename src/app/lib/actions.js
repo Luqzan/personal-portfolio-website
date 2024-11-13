@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { storeProject } from "@/app/lib/data";
+import { storeProject, storeTechnology } from "@/app/lib/data";
 
 const projectSchema = z.object({
   title: z
@@ -50,9 +50,33 @@ const projectSchema = z.object({
   completeDate: z.union([z.string().date(), z.string().optional()]),
 });
 
-export async function createProject(prevState, formData) {
-  console.log(formData.get("role"));
+const technologySchema = z.object({
+  name: z
+    .string({ message: "Title must be a string" })
+    .min(1, "Title is required")
+    .toLowerCase(),
+  label: z
+    .string({ message: "Title must be a string" })
+    .min(1, "Title is required"),
+  logo: z.enum(["png", "svg"], { message: "Logo type is required" }),
+  color: z
+    .string({ message: "Color must be a string" })
+    .regex(/^#([0-9A-Fa-f]{6})$/, {
+      message:
+        "Color must be a valid hex code starting with # and followed by 6 hexadecimal digits",
+    }),
+  officialLink: z
+    .string({ message: "Official link must be a string" })
+    .url({ message: "Official link must be a URL" }),
+  relevanceRank: z
+    .number({ message: "Relevance Score must be a number" })
+    .int({ message: "Relevance Score must be an integer" })
+    .positive({ message: "Relevance Score cannot be negative or 0" })
+    .min(1, { message: "Relevance Score must be at least 1" })
+    .max(7, { message: "Relevance Score must be at most 7" }),
+});
 
+export async function createProject(prevState, formData) {
   const dataInput = {
     title: formData.get("title"),
     type: formData.get("type"),
@@ -70,7 +94,7 @@ export async function createProject(prevState, formData) {
   if (!validatedFields.success) {
     return {
       defaultValues: dataInput,
-      message: "Failed to create project.",
+      message: "Invalid input(s).",
       errors: validatedFields.error.flatten().fieldErrors,
     };
   }
@@ -92,6 +116,45 @@ export async function createProject(prevState, formData) {
     return {
       defaultValues: dataInput,
       message: "Failed to store project.",
+      errors: {},
+    };
+  }
+}
+
+export async function addTechnology(prevState, formData) {
+  const dataInput = {
+    name: formData.get("name"),
+    label: formData.get("label"),
+    logo: formData.get("logo"),
+    color: formData.get("color"),
+    officialLink: formData.get("officialLink"),
+    relevanceRank: Number(formData.get("relevanceRank")),
+  };
+
+  const validatedFields = technologySchema.safeParse(dataInput);
+  if (!validatedFields.success) {
+    return {
+      defaultValues: dataInput,
+      message: "Invalid input(s).",
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  validatedFields.data = {
+    ...validatedFields.data,
+    logo: `/logos/${validatedFields.data.name}.${validatedFields.data.logo}`,
+    color: validatedFields.data.color.toUpperCase(),
+  };
+
+  const technologyId = await storeTechnology(validatedFields.data);
+
+  if (technologyId) {
+    revalidatePath("/projects/create");
+    redirect("/projects/create");
+  } else {
+    return {
+      defaultValues: dataInput,
+      message: "Failed to store technology.",
       errors: {},
     };
   }

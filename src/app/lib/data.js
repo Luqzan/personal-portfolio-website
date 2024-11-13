@@ -1,5 +1,29 @@
 import prisma from "@/app/lib/prisma";
 
+export async function storeTechnology(data) {
+  try {
+    const result = await prisma.technology.create({
+      data: {
+        name: data.name,
+        label: data.label,
+        src: data.logo,
+        color: data.color,
+        relevanceRank: data.relevanceRank,
+        officialLink: data.officialLink,
+      },
+    });
+
+    if (result.id) {
+      return result.id;
+    } else {
+      return null;
+    }
+  } catch (err) {
+    console.error("Error storing technology:", err);
+    return null;
+  }
+}
+
 export async function getAllTechnologies(orderBy, columns) {
   const selectQ =
     columns && columns.length > 0
@@ -88,10 +112,14 @@ export async function storeProject(data) {
       technologies: { connect: technologiesQ },
     },
   };
-
-  let result;
   try {
-    result = await prisma.project.create(projectQ);
+    const result = await prisma.project.create(projectQ);
+
+    if (result.id) {
+      return result.id;
+    } else {
+      return null;
+    }
   } catch (err) {
     console.error("Error storing project:", err);
     return null;

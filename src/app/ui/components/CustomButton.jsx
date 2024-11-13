@@ -4,6 +4,7 @@ import Link from "next/link";
 export default function CustomButton({
   children,
   isFilled = false,
+  isIconOnly = false,
   iconRight = null,
   className = "",
   link = "#",
@@ -16,12 +17,12 @@ export default function CustomButton({
       onMouseLeave={onMouseLeave}
       href={link}
       className={clsx(
-        `flex w-fit font-mono text-lg tracking-widest py-1 font-medium hover:-translate-y-1 hover:scale-110 transition ease-out duration-300 ${className}`,
+        `flex w-fit uppercase font-mono text-lg tracking-widest py-1 font-medium hover:-translate-y-1 hover:scale-110 transition ease-out duration-300 ${className}`,
         {
-          "border-b border-foreground text-foreground hover:text-accent-200 hover:border-accent-200":
-            !isFilled,
-          "bg-foreground text-background px-4 rounded-lg hover:bg-accent-600 hover:text-foreground":
-            isFilled,
+          "border-b border-foreground text-foreground": !isFilled,
+          "bg-foreground text-background rounded-lg": isFilled,
+          "px-4": isFilled && !isIconOnly,
+          "px-2": isFilled && isIconOnly,
         }
       )}
     >

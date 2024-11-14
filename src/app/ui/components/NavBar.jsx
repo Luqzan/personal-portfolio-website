@@ -11,7 +11,7 @@ import {
   SignOutButton,
   useAuth,
 } from "@clerk/nextjs";
-import CustomButton from "@/app/ui/components/CustomButton";
+import CustomLink from "@/app/ui/components/CustomLink";
 import { SignedIn } from "@clerk/nextjs";
 import { useState } from "react";
 import {
@@ -76,14 +76,14 @@ export default function NavBar() {
     <nav className="relative">
       <SignedIn>
         {pathname === "/projects" ? (
-          <CustomButton
+          <CustomLink
             className="absolute right-0 -bottom-16 hover:-translate-y-1 hover:scale-110 transition ease-out duration-300"
             link="/projects/create"
             isFilled={true}
             iconRight={<AddOutlined />}
           >
             ADD PROJECT
-          </CustomButton>
+          </CustomLink>
         ) : null}
       </SignedIn>
 
@@ -96,12 +96,12 @@ export default function NavBar() {
           return (
             <li
               key={page.id}
-              className="hover:-translate-y-1 hover:scale-110 transition ease-out duration-300"
+              className="hover:-translate-y-1 hover:scale-110 transition-transform ease-out duration-300"
             >
               <Link
                 href={page.link}
                 className={clsx(
-                  "w-full h-full font-sans font-light uppercase tracking-widest"
+                  "w-full h-full font-sans font-light uppercase tracking-widest active:text-accent-600"
                 )}
               >
                 {isActive ? <Underline>{page.label}</Underline> : page.label}

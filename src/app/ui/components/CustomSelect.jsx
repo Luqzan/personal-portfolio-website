@@ -1,14 +1,15 @@
-import CustomButton from "@/app/ui/components/CustomButton";
+import CustomButton from "@/app/ui/components/CustomLink";
 import CustomError from "@/app/ui/components/CustomError";
 import { Add } from "@mui/icons-material";
 
 export default function CustomSelect({
   label,
   name,
-  value,
-  onChange,
   options,
   errors = [],
+  defaultValue,
+  value,
+  onChange,
 }) {
   return (
     <div className="w-full flex flex-col gap-2">
@@ -24,6 +25,7 @@ export default function CustomSelect({
           className="w-full py-2 px-3 rounded-lg tracking-widest font-sans font-normal text-sm text-background bg-foreground"
           id={name}
           name={name}
+          defaultValue={defaultValue}
           value={value}
           onChange={onChange}
         >

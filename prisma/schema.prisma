@@ -22,6 +22,7 @@ model Project {
   technologies Technology[]
   liveLink String?
   githubLink String?
+  apiLink String?
   downloadLink String?
   pictures ProjectPictures[]
   startDate DateTime @db.Date
@@ -34,6 +35,7 @@ model Project {
 enum ProjectType {
   WebApplication @map("Web Application")
   MobileApplication @map("Mobile Application")
+  API
   Website
 }
 

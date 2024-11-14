@@ -1,6 +1,6 @@
 "use client";
 
-import CustomButton from "@/app/ui/components/CustomButton";
+import CustomLink from "@/app/ui/components/CustomLink";
 import Underline from "@/app/ui/components/Underline";
 import { useState } from "react";
 
@@ -25,11 +25,11 @@ export default function Hero() {
       </div>
 
       <div className="flex flex-wrap justify-center gap-6">
-        <CustomButton link="/about" isFilled={true}>
+        <CustomLink link="/about" isFilled={true}>
           CONTACT ME
-        </CustomButton>
+        </CustomLink>
 
-        <CustomButton link="/projects">MY WORKS &rarr;</CustomButton>
+        <CustomLink link="/projects">MY WORKS &rarr;</CustomLink>
       </div>
     </div>
   );

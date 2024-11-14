@@ -3,14 +3,7 @@ import prisma from "@/app/lib/prisma";
 export async function storeTechnology(data) {
   try {
     const result = await prisma.technology.create({
-      data: {
-        name: data.name,
-        label: data.label,
-        src: data.logo,
-        color: data.color,
-        relevanceRank: data.relevanceRank,
-        officialLink: data.officialLink,
-      },
+      data: data,
     });
 
     if (result.id) {
@@ -75,84 +68,6 @@ export async function getTechnologiesByName(technologies) {
   }
 }
 
-export async function storeProject(data) {
-  const technologies = data.technologies.split(",").map((item) => item.trim());
-
-  let technologyIds = [];
-
-  try {
-    technologyIds = await prisma.technology.findMany({
-      where: {
-        name: {
-          in: technologies,
-        },
-      },
-      select: {
-        id: true,
-      },
-    });
-  } catch (err) {
-    console.error("Error retrieving technology IDs:", err);
-    return null;
-  }
-
-  const technologiesQ = technologyIds.map((tech) => ({ id: tech.id }));
-
-  const projectQ = {
-    data: {
-      title: data.title,
-      type: data.type,
-      role: data.role,
-      status: data.status,
-      liveLink: data.liveLink,
-      githubLink: data.githubLink,
-      downloadLink: data.downloadLink,
-      startDate: data.startDate,
-      completeDate: data.completeDate,
-      technologies: { connect: technologiesQ },
-    },
-  };
-  try {
-    const result = await prisma.project.create(projectQ);
-
-    if (result.id) {
-      return result.id;
-    } else {
-      return null;
-    }
-  } catch (err) {
-    console.error("Error storing project:", err);
-    return null;
-  }
-
-  if (result.id) {
-    return result.id;
-  } else {
-    return null;
-  }
-}
-
-export async function storeProjectImages(data, projectId) {
-  console.log(data);
-
-  try {
-    const result = await prisma.projectPictures.create({
-      data: {
-        name: data.name,
-        type: data.type,
-        key: data.key,
-        fileHash: data.fileHash,
-        project: { connect: { id: Number(projectId) } },
-      },
-    });
-
-    return result.id;
-  } catch (err) {
-    console.error("Error storing project images:", err);
-    return null;
-  }
-}
-
 export async function getAllProjects(
   orderBy,
   projectColumns,
@@ -196,8 +111,8 @@ export async function getAllProjects(
   try {
     return await prisma.project.findMany({
       orderBy: orderBy
-        ? [{ [orderBy]: "asc" }, { startDate: "asc" }]
-        : [{ startDate: "asc" }],
+        ? [{ [orderBy]: "asc" }, { startDate: "desc" }]
+        : [{ startDate: "desc" }, { completeDate: "desc" }],
       select: {
         ...projectQ,
         pictures: { select: picturesQ },
@@ -209,6 +124,67 @@ export async function getAllProjects(
     });
   } catch (err) {
     console.error("Error fetching all technologies:", err);
+    return null;
+  }
+}
+
+export async function storeProject(data) {
+  try {
+    const result = await prisma.project.create({ data: data });
+
+    if (result.id) {
+      return result.id;
+    } else {
+      return null;
+    }
+  } catch (err) {
+    console.error("Error storing project:", err);
+    return null;
+  }
+}
+
+export async function updateProject(data, projectId) {
+  try {
+    const result = await prisma.project.update({
+      where: { id: projectId },
+      data: data,
+    });
+
+    if (result.id) {
+      return result.id;
+    } else {
+      return null;
+    }
+  } catch (err) {
+    console.error("Error storing project:", err);
+    return null;
+  }
+}
+
+export async function deleteProject(projectId) {
+  try {
+    await prisma.project.delete({ where: { id: projectId } });
+  } catch (err) {
+    console.error("Error deleting project:", err);
+    return null;
+  }
+}
+
+export async function storeProjectImages(data, projectId) {
+  try {
+    const result = await prisma.projectPictures.create({
+      data: {
+        name: data.name,
+        type: data.type,
+        key: data.key,
+        fileHash: data.fileHash,
+        project: { connect: { id: Number(projectId) } },
+      },
+    });
+
+    return result.id;
+  } catch (err) {
+    console.error("Error storing project images:", err);
     return null;
   }
 }

@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { storeProject, storeTechnology } from "@/app/lib/data";
+import { storeProject, updateProject, storeTechnology } from "@/app/lib/data";
 
 const projectSchema = z.object({
   title: z
@@ -36,6 +36,13 @@ const projectSchema = z.object({
     z
       .string({ message: "Github link must be a string" })
       .url({ message: "Github link must be a URL" }),
+    z.string().optional(),
+  ]),
+
+  apiLink: z.union([
+    z
+      .string({ message: "API link must be a string" })
+      .url({ message: "API link must be a URL" }),
     z.string().optional(),
   ]),
 
@@ -85,6 +92,7 @@ export async function createProject(prevState, formData) {
     technologies: formData.get("technologies"),
     liveLink: formData.get("liveLink"),
     githubLink: formData.get("githubLink"),
+    apiLink: formData.get("apiLink"),
     downloadLink: formData.get("downloadLink"),
     startDate: formData.get("startDate"),
     completeDate: formData.get("completeDate"),
@@ -101,15 +109,81 @@ export async function createProject(prevState, formData) {
 
   validatedFields.data = {
     ...validatedFields.data,
+    technologies: {
+      connect: validatedFields.data.technologies
+        .split(",")
+        .map((item) => ({ id: Number(item.trim()) })),
+    },
     startDate: `${validatedFields.data.startDate}T00:00:00.000Z`,
     completeDate: validatedFields.data.completeDate
       ? `${validatedFields.data.completeDate}T00:00:00.000Z`
       : null,
   };
 
-  const projectId = await storeProject(validatedFields.data);
+  const result = await storeProject(validatedFields.data);
 
-  if (projectId) {
+  if (result) {
+    revalidatePath("/projects");
+    redirect(`/projects/`);
+  } else {
+    return {
+      defaultValues: dataInput,
+      message: "Failed to store project.",
+      errors: {},
+    };
+  }
+}
+
+export async function editProject(prevState, formData) {
+  const dataInput = {
+    title: formData.get("title"),
+    type: formData.get("type"),
+    role: formData.get("role"),
+    status: formData.get("status"),
+    technologies: formData.get("technologies"),
+    liveLink: formData.get("liveLink"),
+    githubLink: formData.get("githubLink"),
+    apiLink: formData.get("apiLink"),
+    downloadLink: formData.get("downloadLink"),
+    startDate: formData.get("startDate"),
+    completeDate: formData.get("completeDate"),
+  };
+
+  const validatedFields = projectSchema.safeParse(dataInput);
+  if (!validatedFields.success) {
+    return {
+      defaultValues: dataInput,
+      message: "Invalid input(s).",
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  const prevTech = formData.get("previousTechnologies").split(",");
+  const newTech = validatedFields.data.technologies.split(",");
+
+  let addTech = newTech
+    .filter((tech) => !prevTech.includes(tech))
+    .map((tech) => ({ id: Number(tech) }));
+
+  let removeTech = prevTech
+    .filter((tech) => !newTech.includes(tech))
+    .map((tech) => ({ id: Number(tech) }));
+
+  validatedFields.data = {
+    ...validatedFields.data,
+    technologies: { connect: addTech, disconnect: removeTech },
+    startDate: `${validatedFields.data.startDate}T00:00:00.000Z`,
+    completeDate: validatedFields.data.completeDate
+      ? `${validatedFields.data.completeDate}T00:00:00.000Z`
+      : null,
+  };
+
+  const result = await updateProject(
+    validatedFields.data,
+    Number(formData.get("projectId"))
+  );
+
+  if (result) {
     revalidatePath("/projects");
     redirect(`/projects/`);
   } else {

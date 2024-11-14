@@ -1,33 +1,42 @@
 "use client";
 
-import { createProject } from "@/app/lib/actions";
+import { editProject } from "@/app/lib/actions";
 import Box from "@/app/ui/components/Box";
 import CustomInput from "@/app/ui/components/CustomInput";
 import CustomSelect from "@/app/ui/components/CustomSelect";
 import { useState, useEffect, useActionState } from "react";
 import ClearButton from "@/app/ui/components/ClearButton";
 import TechBadge from "@/app/ui/components/TechBadge";
+import { useSearchParams } from "next/navigation";
 
 export default function Page() {
+  const data = JSON.parse(decodeURIComponent(useSearchParams()).slice(5));
+
+  const existingTechnologies = data.technologies
+    .map((tech) => tech.id)
+    .join(",");
+
   const initialState = {
     defaultValues: {
-      title: "",
-      type: "",
-      role: "",
-      status: "",
-      technologies: "",
-      liveLink: "",
-      githubLink: "",
-      apiLink: "",
-      downloadLink: "",
-      startDate: "",
-      completeDate: "",
+      title: data.title,
+      type: data.type,
+      role: data.role,
+      status: data.status,
+      technologies: existingTechnologies,
+      liveLink: data.liveLink,
+      githubLink: data.githubLink,
+      apiLink: data.apiLink,
+      downloadLink: data.downloadLink,
+      startDate: new Date(data.startDate).toISOString().split("T")[0],
+      completeDate: data.completeDate
+        ? new Date(data.completeDate).toISOString().split("T")[0]
+        : "",
     },
     message: null,
     errors: {},
   };
 
-  const [state, formAction] = useActionState(createProject, initialState);
+  const [state, formAction] = useActionState(editProject, initialState);
   const [technologyList, setTechnologyList] = useState([]);
   const [selectedTechnologies, setSelectedTechnologies] = useState(
     state.defaultValues.technologies
@@ -89,6 +98,13 @@ export default function Page() {
       </h2>
 
       <form action={formAction}>
+        <input type="hidden" name="projectId" value={data.id} />
+        <input
+          type="hidden"
+          name="previousTechnologies"
+          value={state.defaultValues.technologies}
+        />
+
         <div className="flex flex-col gap-4">
           <CustomInput
             type={"text"}
@@ -109,6 +125,7 @@ export default function Page() {
                 { value: "API", label: "API" },
                 { value: "Website", label: "Website" },
               ]}
+              defaultValue={state.defaultValues.type}
               errors={state.errors?.type && state.errors.type}
             />
 
@@ -123,6 +140,7 @@ export default function Page() {
                 { value: "FrontEndEngineer", label: "Front-End Engineer" },
                 { value: "BackEndEngineer", label: "Back-End Engineer" },
               ]}
+              defaultValue={state.defaultValues.role}
               errors={state.errors?.role && state.errors.role}
             />
           </div>
@@ -156,6 +174,7 @@ export default function Page() {
                   { value: "Completed", label: "Completed" },
                   { value: "Abandoned", label: "Abandoned" },
                 ]}
+                defaultValue={state.defaultValues.status}
                 errors={state.errors?.status && state.errors.status}
               />
             </div>

@@ -103,6 +103,7 @@ export async function getAllProjects(
           status: true,
           liveLink: true,
           githubLink: true,
+          apiLink: true,
           downloadLink: true,
           startDate: true,
           completeDate: true,

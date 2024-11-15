@@ -71,7 +71,7 @@ export default function ProjectCard({ data, setProjects }) {
 
   return (
     <Box className="flex flex-col gap-8">
-      <div className="flex flex-col gap-2 sm:gap-0">
+      <div className="flex flex-col gap-2">
         <div className="flex flex-row gap-2 items-start">
           <div className="flex-grow flex flex-col">
             <h3 className="font-mono text-2xl text-foreground">{data.title}</h3>

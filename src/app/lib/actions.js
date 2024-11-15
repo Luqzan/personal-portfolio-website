@@ -9,7 +9,7 @@ const projectSchema = z.object({
   title: z
     .string({ message: "Title must be a string" })
     .min(1, "Title is required"),
-  type: z.enum(["WebApplication", "MobileApplication", "Website"], {
+  type: z.enum(["WebApplication", "MobileApplication", "Website", "API"], {
     message: "Type is required",
   }),
   role: z.enum(["FullStackEngineer", "FrontEndEngineer", "BackEndEngineer"], {

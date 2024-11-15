@@ -1,5 +1,10 @@
 import Link from "next/link";
-import { Language, DownloadForOffline, GitHub } from "@mui/icons-material";
+import {
+  Language,
+  DownloadForOffline,
+  GitHub,
+  Article,
+} from "@mui/icons-material";
 
 export default function ProjectLinkIcon({ href, type }) {
   const iconClassName = "text-foreground size-8 active:text-accent-600";
@@ -12,10 +17,12 @@ export default function ProjectLinkIcon({ href, type }) {
     case "github":
       icon = <GitHub className={iconClassName} />;
       break;
+    case "api":
+      icon = <Article className={iconClassName} />;
+      break;
     case "download":
       icon = <DownloadForOffline className={iconClassName} />;
       break;
-
     default:
       icon = null;
       break;

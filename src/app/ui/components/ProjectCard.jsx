@@ -91,6 +91,10 @@ export default function ProjectCard({ data, setProjects }) {
                 <ProjectLinkIcon href={data.githubLink} type={"github"} />
               )}
 
+              {data.apiLink && (
+                <ProjectLinkIcon href={data.apiLink} type={"api"} />
+              )}
+
               {data.downloadLink && (
                 <ProjectLinkIcon href={data.downloadLink} type={"download"} />
               )}

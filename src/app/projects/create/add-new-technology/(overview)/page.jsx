@@ -11,12 +11,12 @@ import TechBadge from "@/app/ui/components/TechBadge";
 export default function Page() {
   const initialState = {
     defaultValues: {
-      name: "",
-      label: "",
-      src: "",
-      color: "",
-      officialLink: "",
-      relevanceRank: "",
+      name: null,
+      label: null,
+      src: null,
+      color: null,
+      officialLink: null,
+      relevanceRank: null,
     },
     message: null,
     errors: {},
@@ -24,34 +24,6 @@ export default function Page() {
 
   const [state, formAction] = useActionState(addTechnology, initialState);
   const [technologyList, setTechnologyList] = useState([]);
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch("/api/get-all-technologies", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            columns: ["id", "name", "label", "src", "color"],
-            orderBy: "name",
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch technology list");
-        }
-
-        const result = await response.json();
-        setTechnologyList(result);
-      } catch (err) {
-        console.error("Error fetching technologies:", err);
-      }
-    }
-
-    fetchData();
-  }, []);
 
   return (
     <Box>

@@ -216,9 +216,11 @@ export async function addTechnology(prevState, formData) {
 
   validatedFields.data = {
     ...validatedFields.data,
-    logo: `/logos/${validatedFields.data.name}.${validatedFields.data.logo}`,
+    src: `/logos/${validatedFields.data.name}.${validatedFields.data.logo}`,
     color: validatedFields.data.color.toUpperCase(),
   };
+
+  delete validatedFields.data.logo;
 
   const technologyId = await storeTechnology(validatedFields.data);
 
